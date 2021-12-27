@@ -496,7 +496,7 @@
 
             <div>
               <div class="col-12 d-inline-block text-gray mb-2 pr-4">
-                一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 
+                一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 二、Go中的同步锁有什么特点？作用是什么？ 当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该 Mutex； RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占； 同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。 三、Go中channel有什么特点，需要注意什么？ 1.如果给一个nil的channel发送数据，会造成永远的阻塞 2.如果从一个nil的channel中接收数据，也会造成永远的阻塞 3.给一个已经关闭的channel发送数据，会引起panic 4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值 5.无缓冲的channel是同步的，有缓冲的channel是非同步的 
               </div>
             </div>
 

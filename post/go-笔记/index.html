@@ -18,7 +18,7 @@
 
     
     <meta name="description"
-  content="一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 " />
+  content="一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 二、Go中的同步锁有什么特点？作用是什么？ 当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该 Mutex； RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占； 同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。 三、Go中channel有什么特点，需要注意什么？ 1.如果给一个nil的channel发送数据，会造成永远的阻塞 2.如果从一个nil的channel中接收数据，也会造成永远的阻塞 3.给一个已经关闭的channel发送数据，会引起panic 4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值 5.无缓冲的channel是同步的，有缓冲的channel是非同步的 " />
 <meta name="keywords"
   content='blog, google analytics' />
 <meta name="robots" content="noodp" />
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Go 笔记 - Baci&#39;s blog" />
 <meta name="twitter:description"
-  content="一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 " />
+  content="一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 二、Go中的同步锁有什么特点？作用是什么？ 当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该 Mutex； RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占； 同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。 三、Go中channel有什么特点，需要注意什么？ 1.如果给一个nil的channel发送数据，会造成永远的阻塞 2.如果从一个nil的channel中接收数据，也会造成永远的阻塞 3.给一个已经关闭的channel发送数据，会引起panic 4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值 5.无缓冲的channel是同步的，有缓冲的channel是非同步的 " />
 <meta name="twitter:site" content="https://Pass-baci.github.io/" />
 <meta name="twitter:creator" content="" />
 <meta name="twitter:image"
@@ -38,7 +38,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Go 笔记 - Baci&#39;s blog">
 <meta property="og:description"
-  content="一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 " />
+  content="一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 二、Go中的同步锁有什么特点？作用是什么？ 当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该 Mutex； RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占； 同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。 三、Go中channel有什么特点，需要注意什么？ 1.如果给一个nil的channel发送数据，会造成永远的阻塞 2.如果从一个nil的channel中接收数据，也会造成永远的阻塞 3.给一个已经关闭的channel发送数据，会引起panic 4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值 5.无缓冲的channel是同步的，有缓冲的channel是非同步的 " />
 <meta property="og:url" content="https://Pass-baci.github.io/post/go-%E7%AC%94%E8%AE%B0/" />
 <meta property="og:site_name" content="Go 笔记" />
 <meta property="og:image"
@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Mon, 27 Dec 2021 14:44:21 &#43;0800"
+                  Modified <relative-time datetime="Mon, 27 Dec 2021 17:59:12 &#43;0800"
                     class="no-wrap">
-                    Mon, 27 Dec 2021 14:44:21 &#43;0800</relative-time>
+                    Mon, 27 Dec 2021 17:59:12 &#43;0800</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          154 Words
+                          554 Words
                     
 
                   </div>
@@ -190,9 +190,20 @@
 
 
               <div class="Box-body px-5 pb-5">
-                <article class="markdown-body entry-content container-lg"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex">一、什么是Goroutine？该如何停止它？
-	Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束
+                <article class="markdown-body entry-content container-lg"><h4 id="一什么是goroutine该如何停止它">一、什么是Goroutine？该如何停止它？</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex">	Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。
 	停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止
+</code></pre></div><h4 id="二go中的同步锁有什么特点作用是什么">二、Go中的同步锁有什么特点？作用是什么？</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex">	当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该
+Mutex；
+	RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占；
+	同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。
+</code></pre></div><h4 id="三go中channel有什么特点需要注意什么">三、Go中channel有什么特点，需要注意什么？</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tex" data-lang="tex">	1.如果给一个nil的channel发送数据，会造成永远的阻塞
+	2.如果从一个nil的channel中接收数据，也会造成永远的阻塞
+	3.给一个已经关闭的channel发送数据，会引起panic
+	4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值
+	5.无缓冲的channel是同步的，有缓冲的channel是非同步的
 </code></pre></div></article>
               </div>
             </div>
@@ -217,7 +228,7 @@
 
  const tippyInstance = tippy('#toc-toggle', {
   trigger: 'click',
-  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\u003c\/nav\u003e</div>',
+  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\n  \u003cul\u003e\n    \u003cli\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n  \u003c\/ul\u003e\n\u003c\/nav\u003e</div>',
   allowHTML: true,
   placement: 'bottom-start',
   interactive: true,
