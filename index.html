@@ -155,7 +155,7 @@
                 </path>
               </svg>
               Posts
-              <span class="Counter">4</span>
+              <span class="Counter">5</span>
             </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
@@ -448,7 +448,7 @@
         </path>
       </svg>
       Posts
-      <span class="Counter ">4</span>
+      <span class="Counter ">5</span>
     </a>
   </nav>
 </div>
@@ -492,6 +492,34 @@
           Popular posts
         </h2>
         <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 js-pinned-items-reorder-list">
+          
+          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
+            <div
+              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
+              <div class="pinned-item-list-item-content">
+                <div class="d-flex width-full flex-items-center position-relative">
+                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
+                    width="16" height="16">
+                    <path fill-rule="evenodd"
+                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                    </path>
+                  </svg>
+                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/docker%E9%83%A8%E7%BD%B2%E5%8D%95%E8%8A%82%E7%82%B9kafka%E5%8F%8Ago%E6%93%8D%E4%BD%9Ckafka/">
+                    <span class="repo" title="Docker部署单节点kafka及Go操作kafka">Docker部署单节点kafka及Go操作kafka</span>
+                  </a>
+                </div>
+
+
+                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
+                  docker部署单节点kafka 1.docker下载zookeeper镜像 docker pull wurstmeister/zookeeper 2.docker下载kafka镜像 docker pull wurstmeister/kafka 3.docker启动zookeeper docker run -d --name zookeeper -p 2181:2181 -t wurstmeister/zookeeper 4.docker启动kafka docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.161:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.161:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka 命令行解释： -d：后台运行；--name：指定容器名称；-p：容器端口与宿主机端口的映射；-e：配置容器环境变量；-t：选择镜像 KAFKA_BROKER_ID：broker的标识 KAFKA_ZOOKEEPER_CONNECT：zookeeper的地址 KAFKA_ADVERTISED_LISTENERS：宿主机网络上的主机访问地址 KAFKA_LISTENERS：容器网络内的主机访问地址 PLAINTEXT：表名纯文本 5.docker检查是否启动成功 [root@localhost ~]# docker ps | grep -E &#39;zook|kafka&#39; 6f9611740572 wurstmeister/kafka &#34;start-kafka.sh&#34; About an hour ago Up 13 minutes 0.0.0.0:9092-&gt;9092/tcp, :::9092-&gt;9092/tcp kafka a43e49b1a186 wurstmeister/zookeeper &#34;/bin/sh -c &#39;/usr/sb…&#34; About an hour ago Up 14 minutes 22/tcp, 2888/tcp, 3888/tcp, 0.
+                </div>
+
+                <p class="mb-0 f6 text-gray">
+                  
+                </p>
+              </div>
+            </div>
+          </li>
           
           <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
             <div
@@ -611,6 +639,12 @@
 
     
     <div class="mt-4 position-relative" id="contributions" data='[
+{
+  "title": "Docker%e9%83%a8%e7%bd%b2%e5%8d%95%e8%8a%82%e7%82%b9kafka%e5%8f%8aGo%e6%93%8d%e4%bd%9ckafka",
+  "link": "https://Pass-baci.github.io/post/docker%E9%83%A8%E7%BD%B2%E5%8D%95%E8%8A%82%E7%82%B9kafka%E5%8F%8Ago%E6%93%8D%E4%BD%9Ckafka/",
+  "publishDate": "2021-12-28%2010:38:08"
+},
+
 {
   "title": "%e8%ae%be%e8%ae%a1%e6%95%b0%e6%8d%ae%e5%af%86%e9%9b%86%e5%9e%8b%e5%ba%94%e7%94%a8%20%e7%ac%94%e8%ae%b0",
   "link": "https://Pass-baci.github.io/post/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8-%E7%AC%94%E8%AE%B0/",
