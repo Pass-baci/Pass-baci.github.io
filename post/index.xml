@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Baci&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 28 Dec 2021 10:38:08 +0800</lastBuildDate><atom:link href="https://Pass-baci.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Dec 2021 15:31:40 +0800</lastBuildDate><atom:link href="https://Pass-baci.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust 笔记</title>
+      <link>https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 29 Dec 2021 15:31:40 +0800</pubDate>
+      
+      <guid>https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/</guid>
+      <description>Rust命令行 1. rustc filename.rs（必须从带有main函数rs文件中执行） 生成可执行文件（在 Windows 下是 main.exe，其它平台是 main），以及当使用 CMD 时会有一个包含调试信息、扩展名为 .pdb 的文件  2. cargo new projectname （创建一个新项目） Cargo 生成了两个文件和一个目录：一个 Cargo.toml 文件，一个 src 目录，以及位于 src 目录中的 main.rs 文件。它也在 projectname 目录初始化了一个 git 仓库，以及一个 .gitignore 文件。如果你在现有的 git 仓库中运行 cargo new，则不会生成 git 文件；你可以通过使用cargo new --vcs=git 来覆盖此行为  3. cargo build （构建项目） 这个命令会创建一个可执行文件 target/debug/hello_cargo （在 Windows 上是 target\debug\projectname.exe）  4. cargo run（构建并运行） 同时编译并运行生成的可执行文件  5. cargo check 该命令快速检查代码确保其可以编译，但并不产生可执行文件  6. cargo build &amp;ndash;release 当项目最终准备好发布时，可以使用 cargo build --release 来优化编译项目。这会在 target/release 而不是 target/debug 下生成可执行文件。这些优化可以让 Rust 代码运行的更快，不过启用这些优化也需要消耗更长的编译时间  变量与可变性 1.</description>
+    </item>
+    
     <item>
       <title>Docker部署单节点kafka及Go操作kafka</title>
       <link>https://Pass-baci.github.io/post/docker%E9%83%A8%E7%BD%B2%E5%8D%95%E8%8A%82%E7%82%B9kafka%E5%8F%8Ago%E6%93%8D%E4%BD%9Ckafka/</link>

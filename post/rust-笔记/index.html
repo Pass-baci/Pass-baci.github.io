@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='https://Pass-baci.github.io/js/theme-mode.js'></script>
+    <link rel="stylesheet" href='https://Pass-baci.github.io/css/frameworks.min.css' />
+    <link rel="stylesheet" href='https://Pass-baci.github.io/css/github.min.css' />
+    <link rel="stylesheet" href='https://Pass-baci.github.io/css/github-style.css' />
+    <link rel="stylesheet" href='https://Pass-baci.github.io/css/light.css' />
+    <link rel="stylesheet" href='https://Pass-baci.github.io/css/dark.css' />
+    <link rel="stylesheet" href='https://Pass-baci.github.io/css/syntax.css' />
+    <title>Rust 笔记 - Baci&#39;s blog</title>
+    
+    <link rel="icon" type="image/x-icon" href='/images/github.png'>
+    
+    <meta name="theme-color" content="#1e2327">
+
+    
+    <meta name="description"
+  content="Rust命令行 1. rustc filename.rs（必须从带有main函数rs文件中执行） 生成可执行文件（在 Windows 下是 main.exe，其它平台是 main），以及当使用 CMD 时会有一个包含调试信息、扩展名为 .pdb 的文件  2. cargo new projectname （创建一个新项目） Cargo 生成了两个文件和一个目录：一个 Cargo.toml 文件，一个 src 目录，以及位于 src 目录中的 main.rs 文件。它也在 projectname 目录初始化了一个 git 仓库，以及一个 .gitignore 文件。如果你在现有的 git 仓库中运行 cargo new，则不会生成 git 文件；你可以通过使用cargo new --vcs=git 来覆盖此行为  3. cargo build （构建项目） 这个命令会创建一个可执行文件 target/debug/hello_cargo （在 Windows 上是 target\debug\projectname.exe）  4. cargo run（构建并运行） 同时编译并运行生成的可执行文件  5. cargo check 该命令快速检查代码确保其可以编译，但并不产生可执行文件  6. cargo build &amp;ndash;release 当项目最终准备好发布时，可以使用 cargo build --release 来优化编译项目。这会在 target/release 而不是 target/debug 下生成可执行文件。这些优化可以让 Rust 代码运行的更快，不过启用这些优化也需要消耗更长的编译时间  变量与可变性 1." />
+<meta name="keywords"
+  content='blog, google analytics' />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/" />
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Rust 笔记 - Baci&#39;s blog" />
+<meta name="twitter:description"
+  content="Rust命令行 1. rustc filename.rs（必须从带有main函数rs文件中执行） 生成可执行文件（在 Windows 下是 main.exe，其它平台是 main），以及当使用 CMD 时会有一个包含调试信息、扩展名为 .pdb 的文件  2. cargo new projectname （创建一个新项目） Cargo 生成了两个文件和一个目录：一个 Cargo.toml 文件，一个 src 目录，以及位于 src 目录中的 main.rs 文件。它也在 projectname 目录初始化了一个 git 仓库，以及一个 .gitignore 文件。如果你在现有的 git 仓库中运行 cargo new，则不会生成 git 文件；你可以通过使用cargo new --vcs=git 来覆盖此行为  3. cargo build （构建项目） 这个命令会创建一个可执行文件 target/debug/hello_cargo （在 Windows 上是 target\debug\projectname.exe）  4. cargo run（构建并运行） 同时编译并运行生成的可执行文件  5. cargo check 该命令快速检查代码确保其可以编译，但并不产生可执行文件  6. cargo build &amp;ndash;release 当项目最终准备好发布时，可以使用 cargo build --release 来优化编译项目。这会在 target/release 而不是 target/debug 下生成可执行文件。这些优化可以让 Rust 代码运行的更快，不过启用这些优化也需要消耗更长的编译时间  变量与可变性 1." />
+<meta name="twitter:site" content="https://Pass-baci.github.io/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image"
+  content="https://Pass-baci.github.io/">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Rust 笔记 - Baci&#39;s blog">
+<meta property="og:description"
+  content="Rust命令行 1. rustc filename.rs（必须从带有main函数rs文件中执行） 生成可执行文件（在 Windows 下是 main.exe，其它平台是 main），以及当使用 CMD 时会有一个包含调试信息、扩展名为 .pdb 的文件  2. cargo new projectname （创建一个新项目） Cargo 生成了两个文件和一个目录：一个 Cargo.toml 文件，一个 src 目录，以及位于 src 目录中的 main.rs 文件。它也在 projectname 目录初始化了一个 git 仓库，以及一个 .gitignore 文件。如果你在现有的 git 仓库中运行 cargo new，则不会生成 git 文件；你可以通过使用cargo new --vcs=git 来覆盖此行为  3. cargo build （构建项目） 这个命令会创建一个可执行文件 target/debug/hello_cargo （在 Windows 上是 target\debug\projectname.exe）  4. cargo run（构建并运行） 同时编译并运行生成的可执行文件  5. cargo check 该命令快速检查代码确保其可以编译，但并不产生可执行文件  6. cargo build &amp;ndash;release 当项目最终准备好发布时，可以使用 cargo build --release 来优化编译项目。这会在 target/release 而不是 target/debug 下生成可执行文件。这些优化可以让 Rust 代码运行的更快，不过启用这些优化也需要消耗更长的编译时间  变量与可变性 1." />
+<meta property="og:url" content="https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/" />
+<meta property="og:site_name" content="Rust 笔记" />
+<meta property="og:image"
+  content="https://Pass-baci.github.io/">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2021-12-29 15:31:40 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+  <div style="position: relative">
+  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
+    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
+      <a class="Header-link" href="https://Pass-baci.github.io/">
+        <svg class="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item d-md-none">
+      <button class="Header-link btn-link js-details-target" type="button"
+        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
+        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
+          <path fill-rule="evenodd"
+            d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
+          </path>
+        </svg>
+      </button>
+    </div>
+    <div style="display: none;" id="header-search"
+      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
+      <div
+        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
+        <div class="position-relative">
+          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
+            autocomplete="off">
+            <label
+              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
+              <input type="text"
+                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
+                name="q" value="" placeholder="Search" autocomplete="off">
+              <input type="hidden" name="q" value="site:https://Pass-baci.github.io/">
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
+      <a class="Header-link " href="https://Pass-baci.github.io/">
+        <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+          width="32">
+          <path fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+          </path>
+        </svg>
+      </a>
+    </div>
+    <div class="Header-item" style="margin-right: 0;">
+      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
+          version="1.1" width="16" height="16">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
+          </path>
+        </svg>
+      </a>
+    </div>
+  </header>
+</div>
+  
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<div>
+  <main>
+    <div class="gisthead pagehead bg-gray-light pb-0 pt-3 mb-4">
+      <div class="px-0">
+        <div class="mb-3 d-flex px-3 px-md-3 px-lg-5">
+          <div class="flex-auto min-width-0 width-fit mr-3">
+            <div class="d-flex">
+              <div class="d-none d-md-block">
+                <a class="avatar mr-2 flex-shrink-0" href="https://Pass-baci.github.io/">
+                  <img class=" avatar-user"
+                    src="https://Pass-baci.github.io/images/avatar.png"
+                    width="32" height="32"></a>
+              </div>
+              <div class="d-flex flex-column">
+                <h1 class="break-word f3 text-normal mb-md-0 mb-1">
+                  <span class="author">
+                    <a href="https://Pass-baci.github.io/">Baci</a></span><span
+                    class="path-divider">/</span><strong class="css-truncate-target mr-1" style="max-width: 410px"><a
+                      href="https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/">Rust 笔记</a></strong>
+                </h1>
+                <div class="note m-0">
+                  Created <relative-time datetime="Wed, 29 Dec 2021 15:31:40 &#43;0800"
+                    class="no-wrap">
+                    Wed, 29 Dec 2021 15:31:40 &#43;0800</relative-time>
+
+                  
+                  <span class="file-info-divider"></span>
+                  Modified <relative-time datetime="Wed, 29 Dec 2021 17:51:52 &#43;0800"
+                    class="no-wrap">
+                    Wed, 29 Dec 2021 17:51:52 &#43;0800</relative-time>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-lg px-3 new-discussion-timeline">
+      <div class="repository-content gist-content">
+        <div>
+          <div class="js-gist-file-update-container js-task-list-container file-box">
+            <div id="file-pytest" class="file my-2">
+              <div id="post-header" class="file-header d-flex flex-md-items-center flex-items-start sticky-header">
+                <div class="file-info d-flex flex-md-items-center flex-items-start flex-order-1 flex-auto">
+                  <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                    
+                    <summary id="toc-toggle" class="btn btn-octicon m-0 mr-2 p-2" aria-haspopup="menu" aria-label="Table of Contents" role="button">
+                      <svg aria-hidden="true" viewBox="0 0 16 16" height="16" width="16" class="octicon octicon-list-unordered">
+                        <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
+                      </svg>
+                    </summary>
+                          1284 Words
+                    
+
+                  </div>
+                  <div class="file-actions flex-order-2 pt-0">
+                    
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="Box-body px-5 pb-5">
+                <article class="markdown-body entry-content container-lg"><h4 id="rust命令行">Rust命令行</h4>
+<h5 id="1-rustc-filenamers必须从带有main函数rs文件中执行">1. rustc filename.rs（必须从带有main函数rs文件中执行）</h5>
+<pre><code>生成可执行文件（在 Windows 下是 main.exe，其它平台是 main），以及当使用 CMD 时会有一个包含调试信息、扩展名为 .pdb 的文件
+</code></pre>
+<h5 id="2-cargo-new-projectname-创建一个新项目">2. cargo new projectname （创建一个新项目）</h5>
+<pre><code>Cargo 生成了两个文件和一个目录：一个 Cargo.toml 文件，一个 src 目录，以及位于 src 目录中的 main.rs 文件。它也在 projectname 目录初始化了一个 git 仓库，以及一个 .gitignore 文件。如果你在现有的 git 仓库中运行 cargo new，则不会生成 git 文件；你可以通过使用cargo new --vcs=git 来覆盖此行为
+</code></pre>
+<h5 id="3-cargo-build-构建项目">3. cargo build （构建项目）</h5>
+<pre><code>这个命令会创建一个可执行文件 target/debug/hello_cargo （在 Windows 上是 target\debug\projectname.exe）
+</code></pre>
+<h5 id="4-cargo-run构建并运行">4. cargo run（构建并运行）</h5>
+<pre><code>同时编译并运行生成的可执行文件
+</code></pre>
+<h5 id="5-cargo-check">5. cargo check</h5>
+<pre><code>该命令快速检查代码确保其可以编译，但并不产生可执行文件
+</code></pre>
+<h5 id="6-cargo-build---release">6. cargo build &ndash;release</h5>
+<pre><code>当项目最终准备好发布时，可以使用 cargo build --release 来优化编译项目。这会在 target/release 而不是 target/debug 下生成可执行文件。这些优化可以让 Rust 代码运行的更快，不过启用这些优化也需要消耗更长的编译时间
+</code></pre>
+<h4 id="变量与可变性">变量与可变性</h4>
+<h5 id="1-不可变变量">1. 不可变变量</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span><span class="w">	</span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w">	</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">	
+</span><span class="w">	</span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="c1">// 编译报错，报错内容：cannot assign twice to immutable variable（不能对不可变变量 x 二次赋值）
+</span></code></pre></div><h5 id="2-可变变量">2. 可变变量</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="c1">//声明变量使用mut关键字可使该变量变成可变变量，可再次赋值
+</span><span class="c1"></span><span class="w">	</span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w">	</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">
+</span><span class="w">	</span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="3-常量">3. 常量</h5>
+<pre><code>1.不允许对常量使用 mut。常量不光默认不能变，它总是不能变。
+2.声明常量使用 const 关键字而不是 let，并且 必须 注明值的类型
+3.常量可以在任何作用域中声明，包括全局作用域
+4.常量只能被设置为常量表达式，而不可以是其他任何只能在运行时计算出的值。
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="k">const</span><span class="w"> </span><span class="n">THREE_HOURS_IN_SECONDS</span>: <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c1">// : u32称为类型注解
+</span><span class="c1"></span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the const value is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">THREE_HOURS_IN_SECONDS</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="4-隐藏变量">4. 隐藏变量</h5>
+<pre><code>我们可以定义一个与之前变量同名的新变量。Rustacean 们称之为第一个变量被第二个 隐藏 了，这意味着程序使用这个变量时会看到第二个值。可以用相同变量名称来隐藏一个变量，以及重复使用 let 关键字来多次隐藏
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="c1">// 作用：设置作用域
+</span><span class="c1"></span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="c1">// 引用了外部变量
+</span><span class="c1"></span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of x in the inner scope is: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of x is: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id="数据类型">数据类型</h4>
+<h5 id="1-整型默认类型为i32isize-或-usize-主要作为某些集合的索引">1. 整型：默认类型为i32；isize 或 usize 主要作为某些集合的索引</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">长度</th>
+<th style="text-align:center">有符号</th>
+<th style="text-align:center">无符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">8-bit</td>
+<td style="text-align:center">i8</td>
+<td style="text-align:center">u8</td>
+</tr>
+<tr>
+<td style="text-align:center">16-bit</td>
+<td style="text-align:center">i16</td>
+<td style="text-align:center">u16</td>
+</tr>
+<tr>
+<td style="text-align:center">32-bit</td>
+<td style="text-align:center">i32</td>
+<td style="text-align:center">u32</td>
+</tr>
+<tr>
+<td style="text-align:center">64-bit</td>
+<td style="text-align:center">i64</td>
+<td style="text-align:center">u64</td>
+</tr>
+<tr>
+<td style="text-align:center">128-bit</td>
+<td style="text-align:center">i128</td>
+<td style="text-align:center">u128</td>
+</tr>
+<tr>
+<td style="text-align:center">arch</td>
+<td style="text-align:center">isize</td>
+<td style="text-align:center">usize</td>
+</tr>
+</tbody>
+</table>
+<h4 id="复合类型">复合类型</h4>
+<h5 id="1-元组">1. 元组</h5>
+<pre><code>元组是一个将多个其他类型的值组合进一个复合类型的主要方式。元组长度固定：一旦声明，其长度不会增大或缩小。元组中的每一个位置都有一个类型，而且这些不同值的类型也不必是相同的；没有任何值的元组 () 是一种特殊的类型，只有一个值，也写成 () 。该类型被称为单元类型（unit type），而该值被称为单元值（unit value）。如果表达式不返回任何其他值，则会隐式返回单元值。
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">tup</span>: <span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i64</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="mf">32.0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 声明一个元组类型
+</span><span class="c1"></span><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tup</span><span class="p">;</span><span class="w"> </span><span class="c1">// 解构元组，将这个个元组拆成了三个部分
+</span><span class="c1"></span><span class="w">   </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;x = {}, y = {}, z = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">);</span><span class="w">
+</span><span class="w">   </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;x = {}, y = {}, z = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">tup</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="n">tup</span><span class="p">.</span><span class="mi">1</span><span class="p">,</span><span class="n">tup</span><span class="p">.</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 使用索引访问元组内的值
+</span><span class="c1"></span><span class="w">   </span><span class="kd">let</span><span class="w"> </span><span class="n">tup1</span>:<span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">();</span><span class="w"> </span><span class="c1">// 声明一个单元类型
+</span><span class="c1"></span><span class="w">   </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;tup1 = {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">tup1</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="2-数组类型">2. 数组类型</h5>
+<pre><code>包含多个值的方式是 数组（array），数组中的每个元素的类型必须相同，数组长度是固定的，当你确定元素个数不会改变时，数组会更有用。索引越界，Rust会Panic
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w"></span><span class="c1">// 声明数组的方式如下：
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;array is {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;array is {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">c</span>: <span class="p">[</span><span class="kt">i32</span><span class="p">;</span><span class="w"> </span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">32</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">33</span><span class="p">,</span><span class="mi">33</span><span class="p">];</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;array is {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;array is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="c1">// array is [1, 2, 3, 4, 5]
+</span><span class="c1">// array is [3, 3, 3, 3, 3]
+</span><span class="c1">// array is [32, 43, 33, 33, 33]
+</span><span class="c1">// array is 32
+</span></code></pre></div></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+ 
+ 
+ 
+ window.onload = function () {
+   const header = document.getElementById('post-header');
+   const headerHeight = header.offsetHeight;
+   
+   document.documentElement.style.scrollPaddingTop = headerHeight + 10 + "px";
+ }
+
+ const tocToggleButton = document.getElementById("toc-toggle");
+
+ const tippyInstance = tippy('#toc-toggle', {
+  trigger: 'click',
+  content: '<div id="table-of-contents">\u003cnav id=\u0022TableOfContents\u0022\u003e\n  \u003cul\u003e\n    \u003cli\u003e\n      \u003cul\u003e\n        \u003cli\u003e\u003c\/li\u003e\n      \u003c\/ul\u003e\n    \u003c\/li\u003e\n  \u003c\/ul\u003e\n\u003c\/nav\u003e</div>',
+  allowHTML: true,
+  placement: 'bottom-start',
+  interactive: true,
+  arrow: false,
+  maxWidth: "none",
+  onHide: function () { tocToggleButton.classList.remove("hover"); },
+  onShow: function () { tocToggleButton.classList.add("hover"); },
+  onShown: function () {
+    selectTableOfContentsOption();
+
+    if (window.hasSetupTableOfContentsListeners) {
+      return;
+    }
+
+    const tableOfContents = document.getElementById("table-of-contents");
+    tableOfContents.addEventListener('click', function () {
+      
+      tippyInstance[0].hide();
+    });
+
+    window.hasSetupTableOfContentsListeners = true;
+  }
+ });
+
+ function selectTableOfContentsOption () {
+   const optionSelectedClass = 'table-of-contents-option-selected';
+
+   const tableOfContentsOptions = document.querySelectorAll("#table-of-contents > nav > ul li");
+
+   for (const option of tableOfContentsOptions) {
+     
+
+     const [child] = option.children;
+     if (child.tagName.toLowerCase() !== 'a') {
+       continue;
+     }
+
+     if (window.location.href === child.href) {
+       child.classList.add(optionSelectedClass);
+     } else {
+       child.classList.remove(optionSelectedClass);
+     }
+   }
+ }
+
+ window.onhashchange = selectTableOfContentsOption;
+</script>
+
+
+  <div class="footer container-xl width-full p-responsive">
+  <div
+    class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between flex-sm-items-center pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+    <a aria-label="Homepage" title="GitHub" class="footer-octicon d-none d-lg-block mr-lg-4" href="https://Pass-baci.github.io/">
+      <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24">
+        <path fill-rule="evenodd"
+          d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+        </path>
+      </svg>
+    </a>
+    <ul class="list-style-none d-flex flex-wrap col-12 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+      
+      <li class="mr-3 mr-lg-0">Theme by <a href='https://github.com/MeiK2333/github-style'>github-style</a></li>
+      
+    </ul>
+  </div>
+  <div class="d-flex flex-justify-center pb-6">
+    <span class="f6 text-gray-light"></span>
+  </div>
+
+
+</div>
+</body>
+
+<script type="application/javascript" src="https://Pass-baci.github.io/js/github-style.js"></script>
+
+
+
+</html>
