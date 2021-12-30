@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Wed, 29 Dec 2021 17:51:52 &#43;0800"
+                  Modified <relative-time datetime="Thu, 30 Dec 2021 17:55:51 &#43;0800"
                     class="no-wrap">
-                    Wed, 29 Dec 2021 17:51:52 &#43;0800</relative-time>
+                    Thu, 30 Dec 2021 17:55:51 &#43;0800</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          1284 Words
+                          1531 Words
                     
 
                   </div>
@@ -319,6 +319,47 @@
 </span><span class="c1">// array is [3, 3, 3, 3, 3]
 </span><span class="c1">// array is [32, 43, 33, 33, 33]
 </span><span class="c1">// array is 32
+</span></code></pre></div><h4 id="函数">函数</h4>
+<pre><code>Rust 代码中的函数和变量名使用 snake case 规范风格。在 snake case 中，所有字母都是小写并使用下划线分隔单词
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="n">println_hello_world</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">println_number</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="n">println_char</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;h&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">println_hello_world</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;hello, world !&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">println_number</span><span class="p">(</span><span class="n">i</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">println_char</span><span class="p">(</span><span class="n">i</span>: <span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="n">value</span>: <span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is {}{}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id="语句与表达式">语句与表达式</h4>
+<h5 id="1-语句">1. 语句</h5>
+<pre><code>语句（Statements）是执行一些操作但不返回值的指令
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">	</span><span class="c1">// 语句
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="c1">// 语句
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="2-表达式">2. 表达式</h5>
+<pre><code>表达式（Expressions）计算并产生一个值，函数调用是一个表达式。宏调用是一个表达式。用大括号创建的一个新的块作用域也是一个表达式，表达式的结尾没有分号。如果在表达式的结尾加上分号，它就变成了语句，而语句不会返回值
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of y is: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div></article>
               </div>
             </div>
