@@ -155,7 +155,7 @@
                 </path>
               </svg>
               Posts
-              <span class="Counter">6</span>
+              <span class="Counter">8</span>
             </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
@@ -448,7 +448,7 @@
         </path>
       </svg>
       Posts
-      <span class="Counter ">6</span>
+      <span class="Counter ">8</span>
     </a>
   </nav>
 </div>
@@ -492,6 +492,62 @@
           Popular posts
         </h2>
         <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 js-pinned-items-reorder-list">
+          
+          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
+            <div
+              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
+              <div class="pinned-item-list-item-content">
+                <div class="d-flex width-full flex-items-center position-relative">
+                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
+                    width="16" height="16">
+                    <path fill-rule="evenodd"
+                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                    </path>
+                  </svg>
+                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/">
+                    <span class="repo" title="Redis 笔记">Redis 笔记</span>
+                  </a>
+                </div>
+
+
+                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
+                  缓存的收益和成本 缓存带来的回报  高速读写  缓存加速读写速度：CPU L1/L2/L3 Cache、Linux page Cache加速硬盘读写、浏览器缓存、Ehcache缓存数据库结果 降低后端负载，后端服务器通过前端缓存降低负载，业务端使用Redis降低后端MySQL负载等    缓存带来的代价  数据不一致  缓存层和数据层有时间窗口不一致，和更新策略有关   代码维护成本  原本只需要读写MySQL就能实现功能，但加入了缓存之后就要去维护缓存的数据，增加了代码复杂度。 堆内缓存可能带来内存溢出的风险影响用户进程，如ehCache、loadingCache 堆内缓存和远程服务器缓存redis的选择 堆内缓存一般性能更好，远程缓存需要套接字传输 用户级别缓存尽量采用远程缓存 大数据量尽量采用远程缓存，服务节点化原则    缓存雪崩 什么是缓存雪崩？  如果缓存集中在一段时间内失效，发生了大量的缓存穿透，所有的查询操作均发生在数据库上，而对数据库的cpu与内存造成巨大压力，严重可导致数据库宕机。  你有什么解决方案来防止缓存雪崩？  为每个key设置不同的过期时间 数据预热：系统上线时，将相关的缓存数据直接加载到缓存中 加锁排队：当第一个查询去查询key的时候，key不存在则从数据库中查询一次并重新写入缓存中  缓存击穿 什么是缓存击穿？  当用户查询数据时，在数据库中没有，在缓存中查询不到时，需要去数据库中查一次，这样相当于进行了两次无用的查询，这样的请求可以绕过缓存直接查数据库，当请求量达到一定时，数据库可能会宕机。  有什么解决方案来防止缓存穿透？  采用布隆过滤器BloomFilter  将所有可能存在的数据哈 希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力   缓存空值  如果一个查询返回的数据为空(不管是数据不存在，还是系统故障)我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。 通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库    
+                </div>
+
+                <p class="mb-0 f6 text-gray">
+                  
+                </p>
+              </div>
+            </div>
+          </li>
+          
+          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
+            <div
+              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
+              <div class="pinned-item-list-item-content">
+                <div class="d-flex width-full flex-items-center position-relative">
+                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
+                    width="16" height="16">
+                    <path fill-rule="evenodd"
+                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                    </path>
+                  </svg>
+                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/socket-%E7%AC%94%E8%AE%B0/">
+                    <span class="repo" title="Socket 笔记">Socket 笔记</span>
+                  </a>
+                </div>
+
+
+                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
+                  
+                </div>
+
+                <p class="mb-0 f6 text-gray">
+                  
+                </p>
+              </div>
+            </div>
+          </li>
           
           <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
             <div
@@ -605,68 +661,24 @@
             </div>
           </li>
           
-          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
-            <div
-              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
-              <div class="pinned-item-list-item-content">
-                <div class="d-flex width-full flex-items-center position-relative">
-                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
-                    width="16" height="16">
-                    <path fill-rule="evenodd"
-                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                    </path>
-                  </svg>
-                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%AC%94%E8%AE%B0/">
-                    <span class="repo" title="Hugo搭建博客笔记">Hugo搭建博客笔记</span>
-                  </a>
-                </div>
-
-
-                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
-                  资源链接 Hugo官网DOC：https://gohugo.io/getting-started/usage/ Hugo主题官网：https://themes.gohugo.io/ Hugo安装包：https://github.com/gohugoio/hugo/releases 一、windows安装Hugo 1. 根据机型通过github releases下载对应的安装包，进行解压 2. 将bin目录设置到环境变量（PATH） 3. 使用 hugo version来进行校验 二、 创建博客项目目录（站点） hugo new site mybolg ---&gt;(将会在当前目录创建mybolg目录) 三、 添加主题 cd myblog git init git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 修改config.toml配置文件 添加一行：theme = &#34;ananke&#34; 四、创建博客文章 hugo new content/posts/my-first-post.md ---&gt; (部分主题的文章目录名称为post) 文件内容如下 --- title: &#34;My First Post&#34; ---&gt;(文章标题) date: 2019-03-26T08:47:11+01:00 ---&gt;(日期) draft: true ---&gt;(是否为草稿，true：为草稿，不显示在页面中，false：显示在页面中) --- 五、启动hugo服务 hugo server -D 六、构建静态页面 hugo -D 
-                </div>
-
-                <p class="mb-0 f6 text-gray">
-                  
-                </p>
-              </div>
-            </div>
-          </li>
-          
-          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
-            <div
-              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
-              <div class="pinned-item-list-item-content">
-                <div class="d-flex width-full flex-items-center position-relative">
-                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
-                    width="16" height="16">
-                    <path fill-rule="evenodd"
-                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                    </path>
-                  </svg>
-                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/title_of_the_post/">
-                    <span class="repo" title="Title_of_the_post">Title_of_the_post</span>
-                  </a>
-                </div>
-
-
-                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
-                  
-                </div>
-
-                <p class="mb-0 f6 text-gray">
-                  
-                </p>
-              </div>
-            </div>
-          </li>
-          
         </ol>
       </div>
     </div>
 
     
     <div class="mt-4 position-relative" id="contributions" data='[
+{
+  "title": "Redis%20%e7%ac%94%e8%ae%b0",
+  "link": "https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/",
+  "publishDate": "2022-01-04%2014:51:09"
+},
+
+{
+  "title": "Socket%20%e7%ac%94%e8%ae%b0",
+  "link": "https://Pass-baci.github.io/post/socket-%E7%AC%94%E8%AE%B0/",
+  "publishDate": "2021-12-31%2011:13:18"
+},
+
 {
   "title": "Rust%20%e7%ac%94%e8%ae%b0",
   "link": "https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/",

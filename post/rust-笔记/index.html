@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Thu, 30 Dec 2021 17:55:51 &#43;0800"
+                  Modified <relative-time datetime="Tue, 04 Jan 2022 17:45:03 &#43;0800"
                     class="no-wrap">
-                    Thu, 30 Dec 2021 17:55:51 &#43;0800</relative-time>
+                    Tue, 04 Jan 2022 17:45:03 &#43;0800</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          1531 Words
+                          3499 Words
                     
 
                   </div>
@@ -359,6 +359,170 @@
 </span><span class="w">    </span><span class="p">};</span><span class="w">
 </span><span class="w">
 </span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of y is: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id="rust-的所有权">Rust 的所有权</h4>
+<h5 id="前提知识栈stack与堆heap">前提知识：栈（Stack）与堆（Heap）</h5>
+<pre><code>栈和堆都是代码在运行时可供使用的内存，但是它们的结构不同
+栈的存储与取值的原则是后进先出，存数据称为进栈，取数据称为出栈
+栈中的所有数据都必须占用已知且固定的大小
+在编译时大小未知或大小可能变化的数据，要改为存储在堆上
+堆是缺乏组织的：当向堆放入数据时，你要请求一定大小的空间。
+内存分配器（memory allocator）在堆的某处找到一块足够大的空位，
+把它标记为已使用，并返回一个表示该位置地址的 指针（pointer）。
+这个过程称作 在堆上分配内存（allocating on the heap）
+</code></pre>
+<h5 id="所有权的规则">所有权的规则</h5>
+<ul>
+<li>Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。</li>
+<li>值在任一时刻有且只有一个所有者。</li>
+<li>当所有者（变量）离开作用域，这个值将被丢弃。</li>
+</ul>
+<h5 id="内存分配与释放">内存分配与释放</h5>
+<pre><code>内存在拥有它的变量离开作用域后就被自动释放
+当 s 离开作用域的时候。当变量离开作用域，Rust 为我们调用一个特殊的函数。这个函数叫做 drop
+在这里 String 的作者可以放置释放内存的代码。Rust 在结尾的 } 处自动调用 drop
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 从此处起，s 是有效的
+</span><span class="c1"></span><span class="w">
+</span><span class="w">    </span><span class="c1">// 使用 s
+</span><span class="c1"></span><span class="p">}</span><span class="w">                                  </span><span class="c1">// 此作用域已结束，
+</span><span class="c1"></span><span class="w">                                   </span><span class="c1">// s 不再有效
+</span></code></pre></div><h5 id="变量与数据交互的方式一移动">变量与数据交互的方式（一）：移动</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}, world!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">);</span><span class="w"> </span><span class="c1">//报错，s1已失效
+</span></code></pre></div><pre><code>在 let s2 = s1 之后，Rust 认为 s1 不再有效
+因此 Rust 不需要在 s1 离开作用域后清理任何东西
+如果你在其他语言中听说过术语 浅拷贝（shallow copy）和 深拷贝（deep copy）
+那么拷贝指针、长度和容量而不拷贝数据可能听起来像浅拷贝。
+不过因为 Rust 同时使第一个变量无效了，这个操作被称为 移动（move），而不是浅拷贝。
+上面的例子可以解读为 s1 被 移动 到了 s2 中。
+</code></pre>
+<h5 id="变量与数据交互的方式二克隆">变量与数据交互的方式（二）：克隆</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="n">clone</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;s1 = {}, s2 = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">);</span><span class="w">
+</span></code></pre></div><pre><code>这段代码可以正常运行，s1调用了clone()方法，进行了&quot;深拷贝&quot;操作，将原来s1的堆数据进行复制了一份
+</code></pre>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;x = {}, y = {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">);</span><span class="w">
+</span></code></pre></div><pre><code>像整型这样的在编译时已知大小的类型被整个存储在栈上，所以拷贝其实际的值是快速的。
+这意味着没有理由在创建变量 y 后使 x 无效。换句话说，这里没有深浅拷贝的区别，
+所以这里调用 clone 并不会与通常的浅拷贝有什么不同，我们可以不用管它。
+</code></pre>
+<h5 id="所有权与函数">所有权与函数</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;baci&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">	</span><span class="n">println_hello_str</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"> </span><span class="c1">// s移动到了some_string中，s失效
+</span><span class="c1"></span><span class="w">	</span><span class="c1">// println!(&#34;{}&#34;, s); // 报错，s已失效
+</span><span class="c1"></span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c1">// 变量已知大小，存储在栈中。
+</span><span class="c1"></span><span class="w">	</span><span class="n">println_hello_num</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="w"> </span><span class="c1">// num克隆到some_num
+</span><span class="c1"></span><span class="w">	</span><span class="c1">// println!(&#34;{}&#34;, num); // 无报错
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">println_hello_str</span><span class="p">(</span><span class="n">some_string</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;hello {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">some_string</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="c1">//some_string失效
+</span><span class="c1"></span><span class="k">fn</span> <span class="nf">println_hello_num</span><span class="p">(</span><span class="n">some_num</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;hello {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">some_num</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="返回值与作用域">返回值与作用域</h5>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_back_str</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w"> </span><span class="c1">// s移动到get_back_str中，s已失效
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_new_str</span><span class="p">();</span><span class="w"> </span><span class="c1">// get_new_str的返回值移动到s2中
+</span><span class="c1"></span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}{}&#34;</span><span class="p">,</span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">s2</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">get_str</span><span class="p">(</span><span class="n">some_string</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="n">some_string</span><span class="p">.</span><span class="n">push_str</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">get_back_str</span><span class="p">(</span><span class="n">some_string</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="n">some_string</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">get_new_str</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="引用">引用</h5>
+<blockquote>
+<p>在每一个函数中都获取所有权并接着返回所有权有些啰嗦。如果我们想要函数使用一个值但不获取所有权该怎么办呢？如果我们还要接着使用它的话，每次都传进去再返回来就有点烦人了，除此之外，我们也可能想返回函数体中产生的一些数据。Rust 对此提供了一个功能，叫做 引用
+在任意给定时间，要么 只能有一个可变引用，要么 只能有多个不可变引用。
+引用必须总是有效的。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calculate_length</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s1</span><span class="p">);</span><span class="w"> </span><span class="c1">//&amp; 符号就是引用,允许使用值但不获取其所有权
+</span><span class="c1"></span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The length of &#39;{}&#39; is {}.&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">calculate_length</span><span class="p">(</span><span class="n">s</span>: <span class="kp">&amp;</span><span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">usize</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="借用">借用</h5>
+<blockquote>
+<p>我们将创建一个引用的行为称为 借用（borrowing）。正如现实生活中，如果一个人拥有某样东西，你可以从他那里借来。当你使用完毕，必须还回去，但不允许更改任何东西</p>
+</blockquote>
+<h5 id="可变引用">可变引用</h5>
+<blockquote>
+<p>1.可以允许修改引用的值
+2.限制：在同一时间只能有一个对某一特定数据的可变引用，这样好处可以避免数据竞争
+3.可以使用大括号来进行定义多个可变变量
+4.在拥有不可变引用时也不能同时拥有可变引用
+5.可以拥有多个不可变引用
+定义变量时需定义一个可变变量，参数类型需添加mut关键字</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 定义一个可变变量
+</span><span class="c1"></span><span class="w">    </span><span class="n">change</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">);</span><span class="w"> </span><span class="c1">// 向change中传入一个可变引用（需使用关键字mut）
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">change</span><span class="p">(</span><span class="n">some_string</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">some_string</span><span class="p">.</span><span class="n">push_str</span><span class="p">(</span><span class="s">&#34;, world&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> 
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// 报错，在同一时间只能有一个对某一特定数据的可变引用
+</span><span class="c1"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}, {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">r1</span><span class="p">,</span><span class="w"> </span><span class="n">r2</span><span class="p">);</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="c1">// r1 在这里离开了作用域，所以完全可以创建一个新的引用
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w">
+</span></code></pre></div><h5 id="悬垂引用dangling-references">悬垂引用（Dangling References）</h5>
+<blockquote>
+<p>在具有指针的语言中，很容易通过释放内存时保留指向它的指针而错误地生成一个 悬垂指针（dangling pointer），所谓悬垂指针是其指向的内存可能已经被分配给其它持有者。这意味着这个引用会指向一个无效的栈中或者堆中</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">reference_to_nothing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dangle</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">dangle</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="kp">&amp;</span><span class="nb">String</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="o">&amp;</span><span class="n">s</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="c1">// s离开作用域，释放内存，s无效，该引用将会指向无效的string
+</span><span class="c1">// 错误矫正
+</span><span class="c1"></span><span class="k">fn</span> <span class="nf">Notdangle</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">String</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="c1">// 将所有权移动出去，所以值没有释放
+</span></code></pre></div><h5 id="slice类型">Slice类型</h5>
+<blockquote>
+<p>1.没有所有权
+2.允许你引用集合中一段连续的元素序列，而不用引用整个集合。
+3.slice 的数据结构存储了 slice 的开始位置和长度</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello world&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="c1">// hello
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">world</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="o">..</span><span class="mi">11</span><span class="p">];</span><span class="w"> </span><span class="c1">// world
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">top_slice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="o">..</span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="c1">// hello
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">tail_slice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="o">..</span><span class="p">];</span><span class="w"> </span><span class="c1">// world
+</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">slice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="o">..</span><span class="p">];</span><span class="w"> </span><span class="c1">// hello world
+</span><span class="c1"></span><span class="w">
+</span><span class="w"></span><span class="c1">// 遍历slice
+</span><span class="c1"></span><span class="k">fn</span> <span class="nf">get_first_world</span><span class="p">(</span><span class="n">s</span>: <span class="kp">&amp;</span><span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kp">&amp;</span><span class="kt">str</span> <span class="p">{</span><span class="w">
+</span><span class="w">	</span><span class="kd">let</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">as_bytes</span><span class="p">();</span><span class="w">
+</span><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">bytes</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">enumerate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">b&#39; &#39;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">i</span><span class="p">];</span><span class="w">
+</span><span class="w">		</span><span class="p">}</span><span class="w">
+</span><span class="w">	</span><span class="p">}</span><span class="w">
+</span><span class="w">	</span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="o">..</span><span class="p">]</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div></article>
               </div>

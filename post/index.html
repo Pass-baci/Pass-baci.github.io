@@ -154,7 +154,7 @@
                 </path>
               </svg>
               Posts
-              <span class="Counter">6</span>
+              <span class="Counter">8</span>
             </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
@@ -447,7 +447,7 @@
         </path>
       </svg>
       Posts
-      <span class="Counter ">6</span>
+      <span class="Counter ">8</span>
     </a>
   </nav>
 </div>
@@ -459,6 +459,58 @@
     <div>
       
       <ul>
+        
+        <li class="col-12 d-flex width-full py-4 border-bottom color-border-secondary public source">
+          <div class="col-12 d-inline-block">
+            <div class="d-inline-block mb-1">
+              <h3 class="wb-break-all">
+                <a href="https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/">Redis 笔记</a>
+              </h3>
+            </div>
+
+            <div>
+              <div class="col-12 d-inline-block text-gray mb-2 pr-4">
+                缓存的收益和成本 缓存带来的回报  高速读写  缓存加速读写速度：CPU L1/L2/L3 Cache、Linux page Cache加速硬盘读写、浏览器缓存、Ehcache缓存数据库结果 降低后端负载，后端服务器通过前端缓存降低负载，业务端使用Redis降低后端MySQL负载等    缓存带来的代价  数据不一致  缓存层和数据层有时间窗口不一致，和更新策略有关   代码维护成本  原本只需要读写MySQL就能实现功能，但加入了缓存之后就要去维护缓存的数据，增加了代码复杂度。 堆内缓存可能带来内存溢出的风险影响用户进程，如ehCache、loadingCache 堆内缓存和远程服务器缓存redis的选择 堆内缓存一般性能更好，远程缓存需要套接字传输 用户级别缓存尽量采用远程缓存 大数据量尽量采用远程缓存，服务节点化原则    缓存雪崩 什么是缓存雪崩？  如果缓存集中在一段时间内失效，发生了大量的缓存穿透，所有的查询操作均发生在数据库上，而对数据库的cpu与内存造成巨大压力，严重可导致数据库宕机。  你有什么解决方案来防止缓存雪崩？  为每个key设置不同的过期时间 数据预热：系统上线时，将相关的缓存数据直接加载到缓存中 加锁排队：当第一个查询去查询key的时候，key不存在则从数据库中查询一次并重新写入缓存中  缓存击穿 什么是缓存击穿？  当用户查询数据时，在数据库中没有，在缓存中查询不到时，需要去数据库中查一次，这样相当于进行了两次无用的查询，这样的请求可以绕过缓存直接查数据库，当请求量达到一定时，数据库可能会宕机。  有什么解决方案来防止缓存穿透？  采用布隆过滤器BloomFilter  将所有可能存在的数据哈 希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力   缓存空值  如果一个查询返回的数据为空(不管是数据不存在，还是系统故障)我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。 通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库    
+              </div>
+            </div>
+
+            <div class="f6 text-gray mt-2">
+              
+
+              Created
+              <relative-time datetime=" Tue, 04 Jan 2022 14:51:09 &#43;0800" class="no-wrap"
+                title=" Tue, 04 Jan 2022 14:51:09 &#43;0800">
+                Tue, 04 Jan 2022 14:51:09 &#43;0800
+              </relative-time>
+            </div>
+          </div>
+        </li>
+        
+        <li class="col-12 d-flex width-full py-4 border-bottom color-border-secondary public source">
+          <div class="col-12 d-inline-block">
+            <div class="d-inline-block mb-1">
+              <h3 class="wb-break-all">
+                <a href="https://Pass-baci.github.io/post/socket-%E7%AC%94%E8%AE%B0/">Socket 笔记</a>
+              </h3>
+            </div>
+
+            <div>
+              <div class="col-12 d-inline-block text-gray mb-2 pr-4">
+                
+              </div>
+            </div>
+
+            <div class="f6 text-gray mt-2">
+              
+
+              Created
+              <relative-time datetime=" Fri, 31 Dec 2021 11:13:18 &#43;0800" class="no-wrap"
+                title=" Fri, 31 Dec 2021 11:13:18 &#43;0800">
+                Fri, 31 Dec 2021 11:13:18 &#43;0800
+              </relative-time>
+            </div>
+          </div>
+        </li>
         
         <li class="col-12 d-flex width-full py-4 border-bottom color-border-secondary public source">
           <div class="col-12 d-inline-block">
