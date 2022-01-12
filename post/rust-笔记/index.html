@@ -152,9 +152,9 @@
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Mon, 10 Jan 2022 16:36:11 &#43;0800"
+                  Modified <relative-time datetime="Tue, 11 Jan 2022 15:02:23 &#43;0800"
                     class="no-wrap">
-                    Mon, 10 Jan 2022 16:36:11 &#43;0800</relative-time>
+                    Tue, 11 Jan 2022 15:02:23 &#43;0800</relative-time>
                   
                 </div>
               </div>
@@ -178,7 +178,7 @@
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          3789 Words
+                          4012 Words
                     
 
                   </div>
@@ -588,6 +588,40 @@
 </span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w">    </span><span class="k">fn</span> <span class="nf">can_hold</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>: <span class="kp">&amp;</span><span class="nc">Rectangle</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
 </span><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">hight</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">hight</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h5 id="枚举">枚举</h5>
+<blockquote>
+<p>1.定义：对某一类事物的分类，分类的目的是为了对不同的情况进行描述
+2.特点
+2.1：每个枚举成员都可以携带不同于其他枚举成员的数据类型
+2.2：枚举可以像结构一样使用impl定义方法</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// 定义枚举类型
+</span><span class="c1"></span><span class="k">enum</span> <span class="nc">Message</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">Quit</span><span class="p">,</span><span class="w"> </span><span class="c1">//没有关联数据
+</span><span class="c1"></span><span class="w">    </span><span class="n">Move</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">x</span>: <span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>: <span class="kt">i32</span> <span class="p">},</span><span class="w"> </span><span class="c1">// 关联了一个匿名结构体
+</span><span class="c1"></span><span class="w">    </span><span class="n">Write</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span><span class="w"> </span><span class="c1">// 关联了String类型的数据
+</span><span class="c1"></span><span class="w">    </span><span class="n">ChangeColor</span><span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">),</span><span class="w"> </span><span class="c1">// 关联了一个元组
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">four</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IpAddrKind</span>::<span class="n">V4</span><span class="p">(</span><span class="mi">192</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="n">four</span><span class="p">.</span><span class="n">call</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">six</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IpAddrKind</span>::<span class="n">V6</span><span class="p">(</span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;0:0:0:1&#34;</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="n">six</span><span class="p">.</span><span class="n">call</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{:?}{:?}&#34;</span><span class="p">,</span><span class="n">four</span><span class="p">,</span><span class="w"> </span><span class="n">six</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="w"></span><span class="k">enum</span> <span class="nc">IpAddrKind</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">V4</span><span class="p">(</span><span class="kt">u32</span><span class="p">,</span><span class="kt">u32</span><span class="p">,</span><span class="kt">u32</span><span class="p">,</span><span class="kt">u32</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="n">V6</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">IpAddrKind</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">call</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">
 </span><span class="w">    </span><span class="p">}</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
 </span></code></pre></div></article>

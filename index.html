@@ -155,7 +155,7 @@
                 </path>
               </svg>
               Posts
-              <span class="Counter">8</span>
+              <span class="Counter">9</span>
             </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
@@ -448,7 +448,7 @@
         </path>
       </svg>
       Posts
-      <span class="Counter ">8</span>
+      <span class="Counter ">9</span>
     </a>
   </nav>
 </div>
@@ -492,6 +492,41 @@
           Popular posts
         </h2>
         <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 js-pinned-items-reorder-list">
+          
+          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
+            <div
+              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
+              <div class="pinned-item-list-item-content">
+                <div class="d-flex width-full flex-items-center position-relative">
+                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
+                    width="16" height="16">
+                    <path fill-rule="evenodd"
+                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                    </path>
+                  </svg>
+                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/manjaro/">
+                    <span class="repo" title="Manjaro">Manjaro</span>
+                  </a>
+                </div>
+
+
+                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
+                  基础设置   获取源 sudo pacman-mirrors -i -c China -m rank
+  添加源 sudo vim /etc/pacman.conf [archlinuxcn] SigLevel = Never
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+  更新源 sudo pacman -Syu
+  安装yay sudo pacman -S yay
+  安装fcitx5 sudo pacman -S fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk fcitx5-chinese-addons fcitx5-material-color
+  拼音输入法设置 创建.xprofile并添加如下内容： sudo nano ~/.xprofile export GTK_IM_MODULE=fcitx export QT_IM_MODULE=fcitx export XMODIFIERS=&quot;@im=fcitx&quot;
+  美化shell  git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh cp ~/.
+                </div>
+
+                <p class="mb-0 f6 text-gray">
+                  
+                </p>
+              </div>
+            </div>
+          </li>
           
           <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
             <div
@@ -633,40 +668,18 @@
             </div>
           </li>
           
-          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
-            <div
-              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
-              <div class="pinned-item-list-item-content">
-                <div class="d-flex width-full flex-items-center position-relative">
-                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
-                    width="16" height="16">
-                    <path fill-rule="evenodd"
-                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
-                    </path>
-                  </svg>
-                  <a class="text-bold flex-auto min-width-0" href="https://Pass-baci.github.io/post/go-%E7%AC%94%E8%AE%B0/">
-                    <span class="repo" title="Go 笔记">Go 笔记</span>
-                  </a>
-                </div>
-
-
-                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
-                  一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 二、Go中的同步锁有什么特点？作用是什么？ 当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该 Mutex； RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占； 同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。 三、Go中channel有什么特点，需要注意什么？ 1.如果给一个nil的channel发送数据，会造成永远的阻塞 2.如果从一个nil的channel中接收数据，也会造成永远的阻塞 3.给一个已经关闭的channel发送数据，会引起panic 4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值 5.无缓冲的channel是同步的，有缓冲的channel是非同步的 四、Go中defer的作用与特点是什么？ defer 的作用是： 你只需要在调用普通函数或方法前加上关键字 defer，就完成了 defer 所需要 的语法。当 defer 语句被执行时，跟在 defer 后面的函数会被延迟执行。直到 包含该 defer 语句的函数执行完毕时，defer 后的函数才会被执行，不论包含 defer 语句的函数是通过 return 正常结束，还是由于 panic 导致的异常结束。 你可以在一个函数中执行多条 defer 语句，它们的执行顺序与声明顺序相反。 应用场景： ⚫ defer 语句经常被用于处理成对的操作，如打开、关闭、连接、断开连接、 加锁、释放锁。 ⚫ 通过 defer 机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资 源被释放。 ⚫ 释放资源的 defer 应该直接跟在请求资源的语句后。 五、Go中Slice的底层实现 切片是基于数组实现的，它的底层是数组 因为基于数组实现，所以它的底层的内存是连续分配的，效率非常高，还可以通过索引获得数据。 切片对象非常小，是因为它是只有 3 个字段的数据结构： ⚫ 指向底层数组的指针 ⚫ 切片的长度 ⚫ 切片的容量 五、Go中Slice的扩容机制 ⚫ 首先判断，如果新申请容量大于 2 倍的旧容量，最终容量就是新申请的容量 ⚫ 否则判断，如果旧切片的长度小于 1024，则最终容量就是旧容量的两倍 ⚫ 否则判断，如果旧切片长度大于等于 1024，则最终容量从旧容量开始循环增加原来的 1/4, 直到最终容量大于等于新申请的容量 ⚫ 如果最终容量计算值溢出，则最终容量就是新申请容量 
-                </div>
-
-                <p class="mb-0 f6 text-gray">
-                  
-                </p>
-              </div>
-            </div>
-          </li>
-          
         </ol>
       </div>
     </div>
 
     
     <div class="mt-4 position-relative" id="contributions" data='[
+{
+  "title": "Manjaro",
+  "link": "https://Pass-baci.github.io/post/manjaro/",
+  "publishDate": "2022-01-12%2015:38:59"
+},
+
 {
   "title": "Redis%20%e7%ac%94%e8%ae%b0",
   "link": "https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/",

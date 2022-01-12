@@ -6,7 +6,23 @@
     <description>Recent content in Posts on Baci&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 04 Jan 2022 14:51:09 +0800</lastBuildDate><atom:link href="https://Pass-baci.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jan 2022 15:38:59 +0800</lastBuildDate><atom:link href="https://Pass-baci.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Manjaro</title>
+      <link>https://Pass-baci.github.io/post/manjaro/</link>
+      <pubDate>Wed, 12 Jan 2022 15:38:59 +0800</pubDate>
+      
+      <guid>https://Pass-baci.github.io/post/manjaro/</guid>
+      <description>基础设置   获取源 sudo pacman-mirrors -i -c China -m rank
+  添加源 sudo vim /etc/pacman.conf [archlinuxcn] SigLevel = Never
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+  更新源 sudo pacman -Syu
+  安装yay sudo pacman -S yay
+  安装fcitx5 sudo pacman -S fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk fcitx5-chinese-addons fcitx5-material-color
+  拼音输入法设置 创建.xprofile并添加如下内容： sudo nano ~/.xprofile export GTK_IM_MODULE=fcitx export QT_IM_MODULE=fcitx export XMODIFIERS=&amp;quot;@im=fcitx&amp;quot;
+  美化shell  git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh cp ~/.</description>
+    </item>
+    
     <item>
       <title>Redis 笔记</title>
       <link>https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/</link>
