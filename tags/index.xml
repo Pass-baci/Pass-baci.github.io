@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on Baci&#39;s blog</title>
-    <link>https://Pass-baci.github.io/tags/</link>
-    <description>Recent content in Tags on Baci&#39;s blog</description>
+    <title>Tags on Baci Blog</title>
+    <link>https://mzqcgc.cn/tags/</link>
+    <description>Recent content in Tags on Baci Blog</description>
+    <image>
+      <url>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</url>
+      <link>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://Pass-baci.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://mzqcgc.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>first</title>
+      <link>https://mzqcgc.cn/tags/first/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://mzqcgc.cn/tags/first/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

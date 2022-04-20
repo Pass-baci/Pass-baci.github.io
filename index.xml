@@ -1,106 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Baci&#39;s blog</title>
-    <link>https://Pass-baci.github.io/</link>
-    <description>Recent content on Baci&#39;s blog</description>
+    <title>Baci Blog</title>
+    <link>https://mzqcgc.cn/</link>
+    <description>Recent content on Baci Blog</description>
+    <image>
+      <url>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</url>
+      <link>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Wed, 12 Jan 2022 15:38:59 +0800</lastBuildDate><atom:link href="https://Pass-baci.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://mzqcgc.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Manjaro</title>
-      <link>https://Pass-baci.github.io/post/manjaro/</link>
-      <pubDate>Wed, 12 Jan 2022 15:38:59 +0800</pubDate>
+      <title>My 1st post</title>
+      <link>https://mzqcgc.cn/post/title_of_the_post/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
       
-      <guid>https://Pass-baci.github.io/post/manjaro/</guid>
-      <description>基础设置   获取源 sudo pacman-mirrors -i -c China -m rank
-  添加源 sudo vim /etc/pacman.conf [archlinuxcn] SigLevel = Never
-Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
-  更新源 sudo pacman -Syu
-  安装yay sudo pacman -S yay
-  安装fcitx5 sudo pacman -S fcitx5 fcitx5-configtool fcitx5-qt fcitx5-gtk fcitx5-chinese-addons fcitx5-material-color
-  拼音输入法设置 创建.xprofile并添加如下内容： sudo nano ~/.xprofile export GTK_IM_MODULE=fcitx export QT_IM_MODULE=fcitx export XMODIFIERS=&amp;quot;@im=fcitx&amp;quot;
-  美化shell  git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh cp ~/.</description>
-    </item>
-    
-    <item>
-      <title>Redis 笔记</title>
-      <link>https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Tue, 04 Jan 2022 14:51:09 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/redis-%E7%AC%94%E8%AE%B0/</guid>
-      <description>缓存的收益和成本 缓存带来的回报  高速读写  缓存加速读写速度：CPU L1/L2/L3 Cache、Linux page Cache加速硬盘读写、浏览器缓存、Ehcache缓存数据库结果 降低后端负载，后端服务器通过前端缓存降低负载，业务端使用Redis降低后端MySQL负载等    缓存带来的代价  数据不一致  缓存层和数据层有时间窗口不一致，和更新策略有关   代码维护成本  原本只需要读写MySQL就能实现功能，但加入了缓存之后就要去维护缓存的数据，增加了代码复杂度。 堆内缓存可能带来内存溢出的风险影响用户进程，如ehCache、loadingCache 堆内缓存和远程服务器缓存redis的选择 堆内缓存一般性能更好，远程缓存需要套接字传输 用户级别缓存尽量采用远程缓存 大数据量尽量采用远程缓存，服务节点化原则    缓存雪崩 什么是缓存雪崩？  如果缓存集中在一段时间内失效，发生了大量的缓存穿透，所有的查询操作均发生在数据库上，而对数据库的cpu与内存造成巨大压力，严重可导致数据库宕机。  你有什么解决方案来防止缓存雪崩？  为每个key设置不同的过期时间 数据预热：系统上线时，将相关的缓存数据直接加载到缓存中 加锁排队：当第一个查询去查询key的时候，key不存在则从数据库中查询一次并重新写入缓存中  缓存击穿 什么是缓存击穿？  当用户查询数据时，在数据库中没有，在缓存中查询不到时，需要去数据库中查一次，这样相当于进行了两次无用的查询，这样的请求可以绕过缓存直接查数据库，当请求量达到一定时，数据库可能会宕机。  有什么解决方案来防止缓存穿透？  采用布隆过滤器BloomFilter  将所有可能存在的数据哈 希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力   缓存空值  如果一个查询返回的数据为空(不管是数据不存在，还是系统故障)我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。 通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库    </description>
-    </item>
-    
-    <item>
-      <title>Socket 笔记</title>
-      <link>https://Pass-baci.github.io/post/socket-%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Fri, 31 Dec 2021 11:13:18 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/socket-%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rust 笔记</title>
-      <link>https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Wed, 29 Dec 2021 15:31:40 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/rust-%E7%AC%94%E8%AE%B0/</guid>
-      <description>Rust命令行 1. rustc filename.rs（必须从带有main函数rs文件中执行） 生成可执行文件（在 Windows 下是 main.exe，其它平台是 main），以及当使用 CMD 时会有一个包含调试信息、扩展名为 .pdb 的文件  2. cargo new projectname （创建一个新项目） Cargo 生成了两个文件和一个目录：一个 Cargo.toml 文件，一个 src 目录，以及位于 src 目录中的 main.rs 文件。它也在 projectname 目录初始化了一个 git 仓库，以及一个 .gitignore 文件。如果你在现有的 git 仓库中运行 cargo new，则不会生成 git 文件；你可以通过使用cargo new --vcs=git 来覆盖此行为  3. cargo build （构建项目） 这个命令会创建一个可执行文件 target/debug/hello_cargo （在 Windows 上是 target\debug\projectname.exe）  4. cargo run（构建并运行） 同时编译并运行生成的可执行文件  5. cargo check 该命令快速检查代码确保其可以编译，但并不产生可执行文件  6. cargo build &amp;ndash;release 当项目最终准备好发布时，可以使用 cargo build --release 来优化编译项目。这会在 target/release 而不是 target/debug 下生成可执行文件。这些优化可以让 Rust 代码运行的更快，不过启用这些优化也需要消耗更长的编译时间  变量与可变性 1.</description>
-    </item>
-    
-    <item>
-      <title>Docker部署单节点kafka及Go操作kafka</title>
-      <link>https://Pass-baci.github.io/post/docker%E9%83%A8%E7%BD%B2%E5%8D%95%E8%8A%82%E7%82%B9kafka%E5%8F%8Ago%E6%93%8D%E4%BD%9Ckafka/</link>
-      <pubDate>Tue, 28 Dec 2021 10:38:08 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/docker%E9%83%A8%E7%BD%B2%E5%8D%95%E8%8A%82%E7%82%B9kafka%E5%8F%8Ago%E6%93%8D%E4%BD%9Ckafka/</guid>
-      <description>docker部署单节点kafka 1.docker下载zookeeper镜像 docker pull wurstmeister/zookeeper 2.docker下载kafka镜像 docker pull wurstmeister/kafka 3.docker启动zookeeper docker run -d --name zookeeper -p 2181:2181 -t wurstmeister/zookeeper 4.docker启动kafka docker run -d --name kafka -p 9092:9092 -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.1.161:2181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.161:9092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 -t wurstmeister/kafka 命令行解释： -d：后台运行；--name：指定容器名称；-p：容器端口与宿主机端口的映射；-e：配置容器环境变量；-t：选择镜像 KAFKA_BROKER_ID：broker的标识 KAFKA_ZOOKEEPER_CONNECT：zookeeper的地址 KAFKA_ADVERTISED_LISTENERS：宿主机网络上的主机访问地址 KAFKA_LISTENERS：容器网络内的主机访问地址 PLAINTEXT：表名纯文本 5.docker检查是否启动成功 [root@localhost ~]# docker ps | grep -E &amp;#39;zook|kafka&amp;#39; 6f9611740572 wurstmeister/kafka &amp;#34;start-kafka.sh&amp;#34; About an hour ago Up 13 minutes 0.0.0.0:9092-&amp;gt;9092/tcp, :::9092-&amp;gt;9092/tcp kafka a43e49b1a186 wurstmeister/zookeeper &amp;#34;/bin/sh -c &amp;#39;/usr/sb…&amp;#34; About an hour ago Up 14 minutes 22/tcp, 2888/tcp, 3888/tcp, 0.</description>
-    </item>
-    
-    <item>
-      <title>设计数据密集型应用 笔记</title>
-      <link>https://Pass-baci.github.io/post/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8-%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Mon, 27 Dec 2021 10:52:24 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8-%E7%AC%94%E8%AE%B0/</guid>
-      <description>一、可靠性（即使出现问题，也能继续正常工作） 1.应用程序表现出用户所期望的功能。 2.允许用户犯错，允许用户以出乎意料的方式使用软件。 3.在预期的负载和数据量下，性能满足要求。 4.系统能防止未经授权的访问和滥用。 二、可伸缩性 1.可伸缩性（Scalability） 是用来描述系统应对负载增长能力的术语。但是请注意，这不是贴在系统上的一维标签：说“X可伸缩”或“Y不可伸缩”是没有任何意义的。相反，讨论可伸缩性意味着考虑诸如“如果系统以特定方式增长，有什么选项可以应对增长？”和“如何增加计算资源来处理额外的负载？”等问题。 2.纵向伸缩：也称为垂直伸缩，转向更强大的机器 3.横向伸缩：也称为水平伸缩，将负载分布到多台小机器上 三、可维护性 良好的抽象可以帮助降低复杂度，并使系统易于修改和适应新的应用场景。良好的可操作性意味着对系统的健康状态具有良好的可见性，并拥有有效的管理手段。 四、负载 负载可以用一些称为 负载参数（load parameters） 的数字来描述。参数的最佳选择取决于系统架构，它可能是每秒向Web服务器发出的请求、数据库中的读写比率、聊天室中同时活跃的用户数量、缓存命中率或其他东西 五、性能 1. 吞吐量：每秒可以处理的数据数量 2. 响应时间：客户端发送请求到接收响应之间的时间，视为一个可以测量的数值分布（distribution），而不是单个数值。 3. 延迟：某个请求等待处理的持续时长，在此期间它处于 休眠（latent） 状态，并等待服务 </description>
-    </item>
-    
-    <item>
-      <title>Go 笔记</title>
-      <link>https://Pass-baci.github.io/post/go-%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Mon, 27 Dec 2021 09:44:08 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/go-%E7%AC%94%E8%AE%B0/</guid>
-      <description>一、什么是Goroutine？该如何停止它？ Goroutine是与其他函数同时运行的函数，可以认为Go协程是轻量级协程，由Go运行来管理，当被调用的函数返回时或main函数结束时，启动的Goroutine也一并结束。 停止方式：可通过channel由外部发送结束信号，Goroutine可通过接收该信号来进行停止 二、Go中的同步锁有什么特点？作用是什么？ 当一个Goroutine获得Mutex后，其他Goroutine只能等待，除非该Goroutine释放了该 Mutex； RWMutex在读锁占用的情况下，会阻止写，但不阻止其他Goroutine进行读，RWMutex在写锁占用的情况下会阻止写跟读，整个锁由该Goroutine独占； 同步锁的作用是保证资源在使用时的独有性，不会因为并发而导致数据混乱，保证系统的稳定性。 三、Go中channel有什么特点，需要注意什么？ 1.如果给一个nil的channel发送数据，会造成永远的阻塞 2.如果从一个nil的channel中接收数据，也会造成永远的阻塞 3.给一个已经关闭的channel发送数据，会引起panic 4.从一个已经关闭的channel接收数据，如果缓冲区为空，则返回一个对应类型的零值 5.无缓冲的channel是同步的，有缓冲的channel是非同步的 四、Go中defer的作用与特点是什么？ defer 的作用是： 你只需要在调用普通函数或方法前加上关键字 defer，就完成了 defer 所需要 的语法。当 defer 语句被执行时，跟在 defer 后面的函数会被延迟执行。直到 包含该 defer 语句的函数执行完毕时，defer 后的函数才会被执行，不论包含 defer 语句的函数是通过 return 正常结束，还是由于 panic 导致的异常结束。 你可以在一个函数中执行多条 defer 语句，它们的执行顺序与声明顺序相反。 应用场景： ⚫ defer 语句经常被用于处理成对的操作，如打开、关闭、连接、断开连接、 加锁、释放锁。 ⚫ 通过 defer 机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资 源被释放。 ⚫ 释放资源的 defer 应该直接跟在请求资源的语句后。 五、Go中Slice的底层实现 切片是基于数组实现的，它的底层是数组 因为基于数组实现，所以它的底层的内存是连续分配的，效率非常高，还可以通过索引获得数据。 切片对象非常小，是因为它是只有 3 个字段的数据结构： ⚫ 指向底层数组的指针 ⚫ 切片的长度 ⚫ 切片的容量 五、Go中Slice的扩容机制 ⚫ 首先判断，如果新申请容量大于 2 倍的旧容量，最终容量就是新申请的容量 ⚫ 否则判断，如果旧切片的长度小于 1024，则最终容量就是旧容量的两倍 ⚫ 否则判断，如果旧切片长度大于等于 1024，则最终容量从旧容量开始循环增加原来的 1/4, 直到最终容量大于等于新申请的容量 ⚫ 如果最终容量计算值溢出，则最终容量就是新申请容量 </description>
-    </item>
-    
-    <item>
-      <title>Hugo搭建博客笔记</title>
-      <link>https://Pass-baci.github.io/post/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Thu, 23 Dec 2021 16:10:20 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%AC%94%E8%AE%B0/</guid>
-      <description>资源链接 Hugo官网DOC：https://gohugo.io/getting-started/usage/ Hugo主题官网：https://themes.gohugo.io/ Hugo安装包：https://github.com/gohugoio/hugo/releases 一、windows安装Hugo 1. 根据机型通过github releases下载对应的安装包，进行解压 2. 将bin目录设置到环境变量（PATH） 3. 使用 hugo version来进行校验 二、 创建博客项目目录（站点） hugo new site mybolg ---&amp;gt;(将会在当前目录创建mybolg目录) 三、 添加主题 cd myblog git init git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 修改config.toml配置文件 添加一行：theme = &amp;#34;ananke&amp;#34; 四、创建博客文章 hugo new content/posts/my-first-post.md ---&amp;gt; (部分主题的文章目录名称为post) 文件内容如下 --- title: &amp;#34;My First Post&amp;#34; ---&amp;gt;(文章标题) date: 2019-03-26T08:47:11+01:00 ---&amp;gt;(日期) draft: true ---&amp;gt;(是否为草稿，true：为草稿，不显示在页面中，false：显示在页面中) --- 五、启动hugo服务 hugo server -D 六、构建静态页面 hugo -D </description>
-    </item>
-    
-    <item>
-      <title>Title_of_the_post</title>
-      <link>https://Pass-baci.github.io/post/title_of_the_post/</link>
-      <pubDate>Sat, 18 Dec 2021 16:32:17 +0800</pubDate>
-      
-      <guid>https://Pass-baci.github.io/post/title_of_the_post/</guid>
-      <description></description>
+      <guid>https://mzqcgc.cn/post/title_of_the_post/</guid>
+      <description>Desc Text.</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://Pass-baci.github.io/readme/</link>
+      <link>https://mzqcgc.cn/readme/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://Pass-baci.github.io/readme/</guid>
+      <guid>https://mzqcgc.cn/readme/</guid>
       <description>&amp;lsquo;Hello World!&amp;rsquo;</description>
     </item>
     
