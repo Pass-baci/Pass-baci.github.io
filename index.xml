@@ -9,23 +9,15 @@
       <link>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://mzqcgc.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Apr 2022 12:41:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My 1st post</title>
-      <link>https://mzqcgc.cn/post/title_of_the_post/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <title>TCP协议</title>
+      <link>https://mzqcgc.cn/post/tcp%E5%8D%8F%E8%AE%AE/</link>
+      <pubDate>Sat, 23 Apr 2022 12:41:50 +0800</pubDate>
       
-      <guid>https://mzqcgc.cn/post/title_of_the_post/</guid>
-      <description>Desc Text.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://mzqcgc.cn/readme/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://mzqcgc.cn/readme/</guid>
-      <description>&amp;lsquo;Hello World!&amp;rsquo;</description>
+      <guid>https://mzqcgc.cn/post/tcp%E5%8D%8F%E8%AE%AE/</guid>
+      <description>TCP协议  定义：TCP协议是面向连接的，提供可靠的数据传输的一种协议  TCP的三次握手  客户端向服务端发送SYN数据包（由客户端主动发起） 服务端接受到客户端发来的SYN数据包，并回复一个SYN+ACK的数据包（该数据包用于表示向客户端回复我已经收到该请求了） 客户端接受到服务端发来的SYN+ACK数据包，并回复一个ACK确认包，服务端接受后该连接开始  TCP的四次挥手  客户端向服务端发送FIN数据包（由客户端主动发起） 服务端接受到客户端的FIN数据包后，并向客户端发送一个FIN+ACK数据包（该过程结束后，等待服务端数据传输完成） 服务端向客户端发送一个FIN数据包（该数据包表示客户端请求的
+数据已经传输完毕） 客户端向服务端发送一个ACK数据包，（服务接受到之后，该连接断开）  </description>
     </item>
     
   </channel>

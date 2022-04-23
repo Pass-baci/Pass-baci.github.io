@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on Baci Blog</title>
-    <link>https://mzqcgc.cn/post/</link>
-    <description>Recent content in Posts on Baci Blog</description>
+    <title>网络 on Baci Blog</title>
+    <link>https://mzqcgc.cn/categories/%E7%BD%91%E7%BB%9C/</link>
+    <description>Recent content in 网络 on Baci Blog</description>
     <image>
       <url>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</url>
       <link>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 23 Apr 2022 12:41:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Apr 2022 12:41:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/categories/%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TCP协议</title>
       <link>https://mzqcgc.cn/post/tcp%E5%8D%8F%E8%AE%AE/</link>
