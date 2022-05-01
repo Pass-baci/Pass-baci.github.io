@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Baci Blog</title>
-    <link>https://mzqcgc.cn/</link>
-    <description>Recent content on Baci Blog</description>
+    <title>MySQL锁 on Baci Blog</title>
+    <link>https://mzqcgc.cn/tags/mysql%E9%94%81/</link>
+    <description>Recent content in MySQL锁 on Baci Blog</description>
     <image>
       <url>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</url>
       <link>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 May 2022 13:00:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 May 2022 13:00:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/tags/mysql%E9%94%81/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQL-全局锁 表级锁</title>
       <link>https://mzqcgc.cn/post/mysql-%E5%85%A8%E5%B1%80%E9%94%81-%E8%A1%A8%E7%BA%A7%E9%94%81/</link>
@@ -24,25 +24,6 @@ set global readonly=true 两者区别
  在有些系统中，readonly 的值会被用来做其他逻辑，比如用来判断一个库是主库还是备库 在异常处理机制上有差异。如果执行 FTWRL 命令之后由于客户端发生异常断开，那么 MySQL 会自动释放这个全局锁，整个库回到可以正常更新的状态。而将整个库设置为 readonly 之后，如果客户端发生异常，则数据库就会一直保持 readonly 状态，这样会导致整个库长时间处于不可写状态，风险较高   MySQL备份工具 (mysqldump)
 参数–single-transaction，仅支持事务的引擎 作用:导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。 表级锁
 lock tables table_name read; ---只允许读 lock tables table_name write; ---读写操作都会阻塞 unlock tables; ---释放锁 元数据锁(MDL [metadata lock]) 触发场景：在访问一个表的时候会被自动加上，当对一个表做增删改查操作的时候，加 MDL 读锁；当要对表做结构变更操作的时候，加 MDL 写锁；事务中的 MDL 锁，在语句执行开始时申请，但是语句结束后并不会马上释放，而会等到整个事务提交后再释放。 作用：保证读写的正确性</description>
-    </item>
-    
-    <item>
-      <title>每日一题-defer</title>
-      <link>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-defer/</link>
-      <pubDate>Mon, 25 Apr 2022 12:41:50 +0800</pubDate>
-      
-      <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-defer/</guid>
-      <description>func f(n int) (r int) { 	defer func() { 	r += n 	recover() 	}()  	var f func()  	defer f() 	f = func() { 	r += 2 	} 	return n + 1 }  func main() { 	fmt.Println(f(3)) } 答案解析 defer是先进后出的顺序，由于引用了外部变量，从而导致函数结束时如果该变量发生变化，defer引用的变量也会跟着变化 先执行return 3 + 1 然后执行 f()，由于该函数在注册时是一个nil函数，所以会发生panic 最后执行 4 += 3，然后执行recover()保证函数不会崩溃，从而输出7</description>
-    </item>
-    
-    <item>
-      <title>TCP协议</title>
-      <link>https://mzqcgc.cn/post/tcp%E5%8D%8F%E8%AE%AE/</link>
-      <pubDate>Sat, 23 Apr 2022 12:41:50 +0800</pubDate>
-      
-      <guid>https://mzqcgc.cn/post/tcp%E5%8D%8F%E8%AE%AE/</guid>
-      <description>TCP协议  定义：TCP协议是面向连接的，提供可靠的数据传输的一种协议  TCP的三次握手  客户端向服务端发送SYN数据包（由客户端主动发起） 服务端接受到客户端发来的SYN数据包，并回复一个SYN+ACK的数据包（该数据包用于表示向客户端回复我已经收到该请求了） 客户端接受到服务端发来的SYN+ACK数据包，并回复一个ACK确认包，服务端接受后该连接开始  TCP的四次挥手  客户端向服务端发送FIN数据包（由客户端主动发起） 服务端接受到客户端的FIN数据包后，并向客户端发送一个FIN+ACK数据包（该过程结束后，等待服务端数据传输完成） 服务端向客户端发送一个FIN数据包（该数据包表示客户端请求的
-数据已经传输完毕） 客户端向服务端发送一个ACK数据包，（服务接受到之后，该连接断开）  </description>
     </item>
     
   </channel>
