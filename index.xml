@@ -9,7 +9,20 @@
       <link>https://xx.mzqcgc.cn/FrbOmxJvq96XDbDPXbiBWM0LU9e3</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 01 May 2022 13:00:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 May 2022 10:29:50 +0800</lastBuildDate><atom:link href="https://mzqcgc.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL-行锁</title>
+      <link>https://mzqcgc.cn/post/mysql-%E8%A1%8C%E9%94%81/</link>
+      <pubDate>Mon, 02 May 2022 10:29:50 +0800</pubDate>
+      
+      <guid>https://mzqcgc.cn/post/mysql-%E8%A1%8C%E9%94%81/</guid>
+      <description>行锁
+ 定义：行锁就是针对数据表中行记录的锁 编码方式：尽量将并发度高的操作放置事务最后，以减少等待锁的时间  两阶段锁：在 InnoDB 事务中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。这个就是两阶段锁协议
+死锁
+ 定义：当并发系统中不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源时，就会导致这几个线程都进入无限等待的状态，称为死锁 解决方式：  设置等待锁的超时时间，参数设置，默认值是 50s，时间范围过大过小都不适合，过大将会导致等待时间过长，过小将会导致原本只是简单的拿锁，从而导致此锁被判定为超时  SHOW GLOBAL VARIABLES LIKE &amp;#39;innodb_lock_wait_timeout&amp;#39;; ---查看死锁超时时间  SET GLOBAL innodb_lock_wait_timeout=120; ---设置全局死锁超时时间  发起死锁检测(加锁访问的行上有锁，才会检测)，发现死锁后，主动回滚死锁链条中的某一个事务，默认值为on，需要消耗大量CPU资源，因为每个新来的线程中都需要检测是否导致死锁（MySQL 8.0+） `shell ow variables like &amp;#39;innodb_deadlock_detect&amp;#39;; ---查看死锁检测是否开启 t global innodb_deadlock_detect=on; ---开启死锁检测  额外的解决方式  从客户端控制并发度，但是如果客户端很多，最终传入到服务的并发数也不小 在服务端加入中间件来控制并发度 在代码逻辑上做修改，由一行变成多行，减少锁冲突的概率    问题 如果你要删除一个表里面的前 10000 行数据，有以下三种方法可以做到：
+ 第一种，直接执行 delete from T limit 10000; 第二种，在一个连接中循环执行 20 次 delete from T limit 500; 第三种，在 20 个连接中同时执行 delete from T limit 500。 你会选择哪一种方法呢？为什么呢？  答案</description>
+    </item>
+    
     <item>
       <title>MySQL-全局锁 表级锁</title>
       <link>https://mzqcgc.cn/post/mysql-%E5%85%A8%E5%B1%80%E9%94%81-%E8%A1%A8%E7%BA%A7%E9%94%81/</link>
