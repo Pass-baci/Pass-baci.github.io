@@ -16,9 +16,9 @@
       <pubDate>Mon, 25 Apr 2022 12:41:50 +0800</pubDate>
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-defer/</guid>
-      <description>func f(n int) (r int) { 	defer func() { 	r += n 	recover() 	}()  	var f func()  	defer f() 	f = func() { 	r += 2 	} 	return n + 1 }  func main() { 	fmt.Println(f(3)) } 答案解析
+      <description>func f(n int) (r int) { defer func() { r += n recover() }() var f func() defer f() f = func() { r += 2 } return n + 1 } func main() { fmt.Println(f(3)) } 答案解析
  defer是先进后出的顺序，由于引用了外部变量，从而导致函数结束时如果该变量发生变化，defer引用的变量也会跟着变化 先执行return 3 + 1 然后执行 f()，由于该函数在注册时是一个nil函数，所以会发生panic 最后执行 4 += 3，然后执行recover()保证函数不会崩溃，从而输出7
- func main() { 	defer_call() }  func defer_call() { 	defer func() { fmt.</description>
+ func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&amp;#34;打印前&amp;#34;) }() defer func() { fmt.Println(&amp;#34;打印中&amp;#34;) }() defer func() { fmt.</description>
     </item>
     
     <item>
@@ -27,7 +27,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-map/</guid>
-      <description>type UserAges struct { 	ages map[string]int 	sync.Mutex }  func (ua *UserAges) Add(name string, age int) { 	ua.Lock() 	defer ua.Unlock() 	ua.ages[name] = age }  func (ua *UserAges) Get(name string) int { 	if age, ok := ua.ages[name]; ok { 	return age 	} 	return -1 } 以上代码有什么问题？  在执行 Get 方法时可能被 panic。 虽然有使用 sync.Mutex 做写锁，但是 map 是并发读写不安全的。map 属于引用类型，并发读写时多个协程见是通过指针访问同一个地址，即访问共享变量，此时同时读写资源存在竞争关系。会报错误信息:“fatal error: concurrent map read and map write”。 因此，在 Get 中也需要加锁，因为这里只是读，建议使用读写锁 sync.</description>
+      <description>type UserAges struct { ages map[string]int sync.Mutex } func (ua *UserAges) Add(name string, age int) { ua.Lock() defer ua.Unlock() ua.ages[name] = age } func (ua *UserAges) Get(name string) int { if age, ok := ua.ages[name]; ok { return age } return -1 } 以上代码有什么问题？  在执行 Get 方法时可能被 panic。 虽然有使用 sync.Mutex 做写锁，但是 map 是并发读写不安全的。map 属于引用类型，并发读写时多个协程见是通过指针访问同一个地址，即访问共享变量，此时同时读写资源存在竞争关系。会报错误信息:“fatal error: concurrent map read and map write”。 因此，在 Get 中也需要加锁，因为这里只是读，建议使用读写锁 sync.RWMutex
+ </description>
     </item>
     
     <item>
@@ -37,7 +38,7 @@
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91map/</guid>
       <description>场景：在一个高并发的 Web 服务器中，要限制 IP 的频繁访问。现模拟 100 个 IP 同时并发访问服务器，每个 IP 要重复访问 1000 次。 每个 IP 三分钟之内只能访问一次。修改以下代码完成该过程，要求能成功输出 success:100
- package main  import ( 	&amp;#34;fmt&amp;#34; 	&amp;#34;time&amp;#34; )  type Ban struct { 	visitIPs map[string]time.Time }  func NewBan() *Ban { 	return &amp;amp;Ban{visitIPs: make(map[string]time.Time)} } func (o *Ban) visit(ip string) bool { 	if _, ok := o.visitIPs[ip]; ok { 	return true 	} 	o.visitIPs[ip] = time.</description>
+ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) type Ban struct { visitIPs map[string]time.Time } func NewBan() *Ban { return &amp;amp;Ban{visitIPs: make(map[string]time.Time)} } func (o *Ban) visit(ip string) bool { if _, ok := o.visitIPs[ip]; ok { return true } o.visitIPs[ip] = time.Now() return false } func main() { success := 0 ban := NewBan() for i := 0; i &amp;lt; 1000; i++ { for j := 0; j &amp;lt; 100; j++ { go func() { ip := fmt.</description>
     </item>
     
   </channel>

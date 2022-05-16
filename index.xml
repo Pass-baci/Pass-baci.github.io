@@ -19,7 +19,7 @@
       <description>行锁
  定义：行锁就是针对数据表中行记录的锁 编码方式：尽量将并发度高的操作放置事务最后，以减少等待锁的时间  两阶段锁：在 InnoDB 事务中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。这个就是两阶段锁协议
 死锁
- 定义：当并发系统中不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源时，就会导致这几个线程都进入无限等待的状态，称为死锁 解决方式：  设置等待锁的超时时间，参数设置，默认值是 50s，时间范围过大过小都不适合，过大将会导致等待时间过长，过小将会导致原本只是简单的拿锁，从而导致此锁被判定为超时    show global variables LIKE &amp;#39;innodb_lock_wait_timeout&amp;#39;; ---查看死锁超时时间 SET GLOBAL innodb_lock_wait_timeout=120; ---设置全局死锁超时时间 2. 发起死锁检测(加锁访问的行上有锁，才会检测)，发现死锁后，主动回滚死锁链条中的某一个事务，默认值为on，需要消耗大量CPU资源，因为每个新来的线程中都需要检测是否导致死锁（MySQL 8.0+）  show variables like &amp;#39;innodb_deadlock_detect&amp;#39;; ---查看死锁检测是否开启 set global innodb_deadlock_detect=on; ---开启死锁检测  额外的解决方式  从客户端控制并发度，但是如果客户端很多，最终传入到服务的并发数也不小 在服务端加入中间件来控制并发度 在代码逻辑上做修改，由一行变成多行，减少锁冲突的概率    问题 如果你要删除一个表里面的前 10000 行数据，有以下三种方法可以做到：
+ 定义：当并发系统中不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源时，就会导致这几个线程都进入无限等待的状态，称为死锁 解决方式：  设置等待锁的超时时间，参数设置，默认值是 50s，时间范围过大过小都不适合，过大将会导致等待时间过长，过小将会导致原本只是简单的拿锁，从而导致此锁被判定为超时    show global variables LIKE &amp;#39;innodb_lock_wait_timeout&amp;#39;; ---查看死锁超时时间 SET GLOBAL innodb_lock_wait_timeout=120; ---设置全局死锁超时时间 2. 发起死锁检测(加锁访问的行上有锁，才会检测)，发现死锁后，主动回滚死锁链条中的某一个事务，默认值为on，需要消耗大量CPU资源，因为每个新来的线程中都需要检测是否导致死锁（MySQL 8.0+） show variables like &amp;#39;innodb_deadlock_detect&amp;#39;; ---查看死锁检测是否开启 set global innodb_deadlock_detect=on; ---开启死锁检测  额外的解决方式  从客户端控制并发度，但是如果客户端很多，最终传入到服务的并发数也不小 在服务端加入中间件来控制并发度 在代码逻辑上做修改，由一行变成多行，减少锁冲突的概率    问题 如果你要删除一个表里面的前 10000 行数据，有以下三种方法可以做到：
  第一种，直接执行 delete from T limit 10000; 第二种，在一个连接中循环执行 20 次 delete from T limit 500; 第三种，在 20 个连接中同时执行 delete from T limit 500。 你会选择哪一种方法呢？为什么呢？  答案</description>
     </item>
     
@@ -35,7 +35,7 @@ select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx
  如果你在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆 如果你在从库上备份，那么备份期间从库不能执行主库同步过来的 binlog，会导致主从延迟  Flush tables with read lock (FTWRL) 全局锁的另外一种方式
 set global readonly=true 两者区别
  在有些系统中，readonly 的值会被用来做其他逻辑，比如用来判断一个库是主库还是备库 在异常处理机制上有差异。如果执行 FTWRL 命令之后由于客户端发生异常断开，那么 MySQL 会自动释放这个全局锁，整个库回到可以正常更新的状态。而将整个库设置为 readonly 之后，如果客户端发生异常，则数据库就会一直保持 readonly 状态，这样会导致整个库长时间处于不可写状态，风险较高   MySQL备份工具 (mysqldump)
-参数–single-transaction，仅支持事务的引擎 作用:导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。 表级锁
+参数–single-transaction，仅支持事务的引擎作用:导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。表级锁
 lock tables table_name read; ---只允许读 lock tables table_name write; ---读写操作都会阻塞 unlock tables; ---释放锁 元数据锁(MDL [metadata lock]) 触发场景：在访问一个表的时候会被自动加上，当对一个表做增删改查操作的时候，加 MDL 读锁；当要对表做结构变更操作的时候，加 MDL 写锁；事务中的 MDL 锁，在语句执行开始时申请，但是语句结束后并不会马上释放，而会等到整个事务提交后再释放。 作用：保证读写的正确性</description>
     </item>
     
@@ -45,9 +45,9 @@ lock tables table_name read; ---只允许读 lock tables table_name write; ---�
       <pubDate>Mon, 25 Apr 2022 12:41:50 +0800</pubDate>
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-defer/</guid>
-      <description>func f(n int) (r int) { 	defer func() { 	r += n 	recover() 	}()  	var f func()  	defer f() 	f = func() { 	r += 2 	} 	return n + 1 }  func main() { 	fmt.Println(f(3)) } 答案解析
+      <description>func f(n int) (r int) { defer func() { r += n recover() }() var f func() defer f() f = func() { r += 2 } return n + 1 } func main() { fmt.Println(f(3)) } 答案解析
  defer是先进后出的顺序，由于引用了外部变量，从而导致函数结束时如果该变量发生变化，defer引用的变量也会跟着变化 先执行return 3 + 1 然后执行 f()，由于该函数在注册时是一个nil函数，所以会发生panic 最后执行 4 += 3，然后执行recover()保证函数不会崩溃，从而输出7
- func main() { 	defer_call() }  func defer_call() { 	defer func() { fmt.</description>
+ func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&amp;#34;打印前&amp;#34;) }() defer func() { fmt.Println(&amp;#34;打印中&amp;#34;) }() defer func() { fmt.</description>
     </item>
     
     <item>
@@ -61,12 +61,25 @@ lock tables table_name read; ---只允许读 lock tables table_name write; ---�
     </item>
     
     <item>
+      <title></title>
+      <link>https://mzqcgc.cn/post/%E8%BF%9B%E5%88%B6%E9%97%B4%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mzqcgc.cn/post/%E8%BF%9B%E5%88%B6%E9%97%B4%E8%BD%AC%E6%8D%A2/</guid>
+      <description>title: &amp;ldquo;进制间转换&amp;rdquo; categories: &amp;ldquo;计算机基础&amp;rdquo; tags: [&amp;ldquo;进制&amp;rdquo;] date: 2022-05-16T11:50:50+08:00 draft: false 进制种类  二进制：由 0 1 表示，逢二进一 八进制：由 0 1 2 3 4 5 6 7表示，逢八进一 十进制：由 0 1 2 3 4 5 6 7 8 9表示，逢十进一 十六进制：由 0 1 2 3 4 5 6 7 8 9 A B C D F表示，逢十六进一
+ 二进制与十进制之间的转换 十进制转二进制 方法：除2取余法，从最后一位余数到第一位余数进行排列
+二进制转十进制 方法：把二进制数按权展开，进行相加，如下所示：
+二进制数：01101 按权展开后([]表示权)：0[4] 1[3] 1[2] 0[1] 1[0] 根据权进行相加：0*2^4 + 1*2^3 + 1*2^2 + 0*2^1 + 1*2^0 可得对应的十进制数为：13 二进制与八进制之间的转换 二进制转八进制 方法：将二进制数从右往左，每三位按权展开相加可得一位八进制数，不足则补0，如下所示</description>
+    </item>
+    
+    <item>
       <title>每日一题-Map</title>
       <link>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-map/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-map/</guid>
-      <description>type UserAges struct { 	ages map[string]int 	sync.Mutex }  func (ua *UserAges) Add(name string, age int) { 	ua.Lock() 	defer ua.Unlock() 	ua.ages[name] = age }  func (ua *UserAges) Get(name string) int { 	if age, ok := ua.ages[name]; ok { 	return age 	} 	return -1 } 以上代码有什么问题？  在执行 Get 方法时可能被 panic。 虽然有使用 sync.Mutex 做写锁，但是 map 是并发读写不安全的。map 属于引用类型，并发读写时多个协程见是通过指针访问同一个地址，即访问共享变量，此时同时读写资源存在竞争关系。会报错误信息:“fatal error: concurrent map read and map write”。 因此，在 Get 中也需要加锁，因为这里只是读，建议使用读写锁 sync.</description>
+      <description>type UserAges struct { ages map[string]int sync.Mutex } func (ua *UserAges) Add(name string, age int) { ua.Lock() defer ua.Unlock() ua.ages[name] = age } func (ua *UserAges) Get(name string) int { if age, ok := ua.ages[name]; ok { return age } return -1 } 以上代码有什么问题？  在执行 Get 方法时可能被 panic。 虽然有使用 sync.Mutex 做写锁，但是 map 是并发读写不安全的。map 属于引用类型，并发读写时多个协程见是通过指针访问同一个地址，即访问共享变量，此时同时读写资源存在竞争关系。会报错误信息:“fatal error: concurrent map read and map write”。 因此，在 Get 中也需要加锁，因为这里只是读，建议使用读写锁 sync.RWMutex
+ </description>
     </item>
     
     <item>
@@ -76,7 +89,7 @@ lock tables table_name read; ---只允许读 lock tables table_name write; ---�
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-%E9%99%90%E5%88%B6%E5%B9%B6%E5%8F%91map/</guid>
       <description>场景：在一个高并发的 Web 服务器中，要限制 IP 的频繁访问。现模拟 100 个 IP 同时并发访问服务器，每个 IP 要重复访问 1000 次。 每个 IP 三分钟之内只能访问一次。修改以下代码完成该过程，要求能成功输出 success:100
- package main  import ( 	&amp;#34;fmt&amp;#34; 	&amp;#34;time&amp;#34; )  type Ban struct { 	visitIPs map[string]time.Time }  func NewBan() *Ban { 	return &amp;amp;Ban{visitIPs: make(map[string]time.Time)} } func (o *Ban) visit(ip string) bool { 	if _, ok := o.visitIPs[ip]; ok { 	return true 	} 	o.visitIPs[ip] = time.</description>
+ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) type Ban struct { visitIPs map[string]time.Time } func NewBan() *Ban { return &amp;amp;Ban{visitIPs: make(map[string]time.Time)} } func (o *Ban) visit(ip string) bool { if _, ok := o.visitIPs[ip]; ok { return true } o.visitIPs[ip] = time.Now() return false } func main() { success := 0 ban := NewBan() for i := 0; i &amp;lt; 1000; i++ { for j := 0; j &amp;lt; 100; j++ { go func() { ip := fmt.</description>
     </item>
     
   </channel>

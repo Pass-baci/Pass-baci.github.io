@@ -19,7 +19,7 @@
       <description>行锁
  定义：行锁就是针对数据表中行记录的锁 编码方式：尽量将并发度高的操作放置事务最后，以减少等待锁的时间  两阶段锁：在 InnoDB 事务中，行锁是在需要的时候才加上的，但并不是不需要了就立刻释放，而是要等到事务结束时才释放。这个就是两阶段锁协议
 死锁
- 定义：当并发系统中不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源时，就会导致这几个线程都进入无限等待的状态，称为死锁 解决方式：  设置等待锁的超时时间，参数设置，默认值是 50s，时间范围过大过小都不适合，过大将会导致等待时间过长，过小将会导致原本只是简单的拿锁，从而导致此锁被判定为超时    show global variables LIKE &amp;#39;innodb_lock_wait_timeout&amp;#39;; ---查看死锁超时时间 SET GLOBAL innodb_lock_wait_timeout=120; ---设置全局死锁超时时间 2. 发起死锁检测(加锁访问的行上有锁，才会检测)，发现死锁后，主动回滚死锁链条中的某一个事务，默认值为on，需要消耗大量CPU资源，因为每个新来的线程中都需要检测是否导致死锁（MySQL 8.0+）  show variables like &amp;#39;innodb_deadlock_detect&amp;#39;; ---查看死锁检测是否开启 set global innodb_deadlock_detect=on; ---开启死锁检测  额外的解决方式  从客户端控制并发度，但是如果客户端很多，最终传入到服务的并发数也不小 在服务端加入中间件来控制并发度 在代码逻辑上做修改，由一行变成多行，减少锁冲突的概率    问题 如果你要删除一个表里面的前 10000 行数据，有以下三种方法可以做到：
+ 定义：当并发系统中不同线程出现循环资源依赖，涉及的线程都在等待别的线程释放资源时，就会导致这几个线程都进入无限等待的状态，称为死锁 解决方式：  设置等待锁的超时时间，参数设置，默认值是 50s，时间范围过大过小都不适合，过大将会导致等待时间过长，过小将会导致原本只是简单的拿锁，从而导致此锁被判定为超时    show global variables LIKE &amp;#39;innodb_lock_wait_timeout&amp;#39;; ---查看死锁超时时间 SET GLOBAL innodb_lock_wait_timeout=120; ---设置全局死锁超时时间 2. 发起死锁检测(加锁访问的行上有锁，才会检测)，发现死锁后，主动回滚死锁链条中的某一个事务，默认值为on，需要消耗大量CPU资源，因为每个新来的线程中都需要检测是否导致死锁（MySQL 8.0+） show variables like &amp;#39;innodb_deadlock_detect&amp;#39;; ---查看死锁检测是否开启 set global innodb_deadlock_detect=on; ---开启死锁检测  额外的解决方式  从客户端控制并发度，但是如果客户端很多，最终传入到服务的并发数也不小 在服务端加入中间件来控制并发度 在代码逻辑上做修改，由一行变成多行，减少锁冲突的概率    问题 如果你要删除一个表里面的前 10000 行数据，有以下三种方法可以做到：
  第一种，直接执行 delete from T limit 10000; 第二种，在一个连接中循环执行 20 次 delete from T limit 500; 第三种，在 20 个连接中同时执行 delete from T limit 500。 你会选择哪一种方法呢？为什么呢？  答案</description>
     </item>
     
@@ -35,7 +35,7 @@ select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx
  如果你在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆 如果你在从库上备份，那么备份期间从库不能执行主库同步过来的 binlog，会导致主从延迟  Flush tables with read lock (FTWRL) 全局锁的另外一种方式
 set global readonly=true 两者区别
  在有些系统中，readonly 的值会被用来做其他逻辑，比如用来判断一个库是主库还是备库 在异常处理机制上有差异。如果执行 FTWRL 命令之后由于客户端发生异常断开，那么 MySQL 会自动释放这个全局锁，整个库回到可以正常更新的状态。而将整个库设置为 readonly 之后，如果客户端发生异常，则数据库就会一直保持 readonly 状态，这样会导致整个库长时间处于不可写状态，风险较高   MySQL备份工具 (mysqldump)
-参数–single-transaction，仅支持事务的引擎 作用:导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。 表级锁
+参数–single-transaction，仅支持事务的引擎作用:导数据之前就会启动一个事务，来确保拿到一致性视图。而由于 MVCC 的支持，这个过程中数据是可以正常更新的。表级锁
 lock tables table_name read; ---只允许读 lock tables table_name write; ---读写操作都会阻塞 unlock tables; ---释放锁 元数据锁(MDL [metadata lock]) 触发场景：在访问一个表的时候会被自动加上，当对一个表做增删改查操作的时候，加 MDL 读锁；当要对表做结构变更操作的时候，加 MDL 写锁；事务中的 MDL 锁，在语句执行开始时申请，但是语句结束后并不会马上释放，而会等到整个事务提交后再释放。 作用：保证读写的正确性</description>
     </item>
     

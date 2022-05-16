@@ -16,9 +16,9 @@
       <pubDate>Mon, 25 Apr 2022 12:41:50 +0800</pubDate>
       
       <guid>https://mzqcgc.cn/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98-defer/</guid>
-      <description>func f(n int) (r int) { 	defer func() { 	r += n 	recover() 	}()  	var f func()  	defer f() 	f = func() { 	r += 2 	} 	return n + 1 }  func main() { 	fmt.Println(f(3)) } 答案解析
+      <description>func f(n int) (r int) { defer func() { r += n recover() }() var f func() defer f() f = func() { r += 2 } return n + 1 } func main() { fmt.Println(f(3)) } 答案解析
  defer是先进后出的顺序，由于引用了外部变量，从而导致函数结束时如果该变量发生变化，defer引用的变量也会跟着变化 先执行return 3 + 1 然后执行 f()，由于该函数在注册时是一个nil函数，所以会发生panic 最后执行 4 += 3，然后执行recover()保证函数不会崩溃，从而输出7
- func main() { 	defer_call() }  func defer_call() { 	defer func() { fmt.</description>
+ func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&amp;#34;打印前&amp;#34;) }() defer func() { fmt.Println(&amp;#34;打印中&amp;#34;) }() defer func() { fmt.</description>
     </item>
     
   </channel>
